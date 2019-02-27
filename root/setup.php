@@ -46,7 +46,7 @@ $query = "CREATE TABLE users (
   name varchar(30) COLLATE utf8_swedish_ci NOT NULL,
   password varchar(255) COLLATE utf8_swedish_ci NOT NULL,
   bio varchar(500) COLLATE utf8_swedish_ci NOT NULL,
-  posts varchar(500) COLLATE utf8_swedish_ci NOT NULL
+  list varchar(500) COLLATE utf8_swedish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci";
 
 AddTable($query);
