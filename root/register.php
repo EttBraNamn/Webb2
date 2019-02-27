@@ -69,7 +69,7 @@ function ExistingUsers(&$name)
 
 function Error($e = "")
 {
-	header("location: signup.php?err=" . $e);
+	header("location: signup.php?error=" . $e);
 	exit();
 }
 
