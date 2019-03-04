@@ -1,12 +1,13 @@
 <?php
 
-function Print($s = "")
+function Write($a = "n")
 {
 	$arr = array();
 	
 	$arr['wrong'] = "Incorrect username or password.";
-	$arr['empty'] = "You need to enter both fields."
+	$arr['empty'] = "You need to enter both fields.";
 	$arr['error'] = "Something went wrong with the database";
+	$arr['n'] = "";
 	echo("<html>
 
 	<head>
@@ -23,7 +24,7 @@ function Print($s = "")
                 <input type=\"password\" onchange=\"Valid()\" style=\"width:100%\" name=\"password\" id=\"password\" />
                 <br />
 				<div style=\"background-color:red;margin-top:5px;margin-bottom:5px\">
-				<label>". $arr[$a] "</label>
+				<label>". $arr[$a] . "</label>
 				</div>
                 <input type=\"submit\" disabled=\"true\" name=\"submit\" id=\"submit\"/>
             </form>
@@ -56,11 +57,11 @@ function Print($s = "")
 
 if (isset($_GET['error']))
 {
-	Print($_GET['error']);
+	Write($_GET['error']);
 }
 else
 {
-	Print();
+	Write();
 }
 
 ?>

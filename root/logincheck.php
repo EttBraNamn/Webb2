@@ -10,11 +10,11 @@ if (!isset($_POST['name']) || !isset($_POST['password']))
 	exit();
 }
 
-$query = "SELECT * FROM users WHERE name=:name"
+$query = "SELECT * FROM users WHERE name=:name";
 
 $connect = new PDO("mysql:host=" . SERVERNAME . ";dbname=" . DBNAME, USERNAME, PASSWORD);
 
-if (!($stmt = $connect->prepare($q)))
+if (!($stmt = $connect->prepare($query)))
 {
 	header("location: login.php?error=error");
 	exit();

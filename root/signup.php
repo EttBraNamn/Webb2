@@ -1,8 +1,8 @@
 <?php
 
-include 'globalVal.php'
+include 'globalVal.php';
 
-function Print($a = "none")
+function Write($a = "none")
 {
 	$arr = array();
 	
@@ -13,7 +13,8 @@ function Print($a = "none")
 	$arr['existingUser'] = "The username is already in use";
 	$arr['tooLongName'] = "The username is too long";
 	$arr['invalidChars'] = "The username is using unvalid characters";
-	
+	$arr['none'] = "";
+	$arr[''] = '';
 	
 	echo("<html>
 <head>
@@ -44,11 +45,11 @@ function Print($a = "none")
 
 if (isset($_GET['error']))
 {
-	Print($_GET['error']);
+	Write($_GET['error']);
 }
 else
 {
-	Print();
+	Write();
 }
 
 ?>
