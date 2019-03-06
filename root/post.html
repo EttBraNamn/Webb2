@@ -1,38 +1,125 @@
-<html>
-    <head>
-        <title>
-            Posts
-        </title>
-        <meta charset="utf-8" />
-    </head>
-    <body>
+﻿<html>
+<head>
+    <title>
+        Posts
+    </title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <style>
+        .post {
+            height: auto;
+        }
 
-        <div class="post" id="op" style="height:auto;">
+        .profile {
+            width: 30%;
+            float: left;
+            height: 30%;
+        }
+
+        .text {
+            width: 70%;
+            float: right;
+            height: 30%;
+        }
+
+        .profilepic {
+            width: 25%;
+        }
+
+        .ctext {
+            height: 25%;
+        }
+
+        .cprofile {
+            height: 25%;
+        }
+        .error {
+            background-color:red;
+            margin-bottom:25px;
+        }
+        .input{
+            margin-top:10px;
+            width:100%;
+            height:15%;
+        }
+        .comment {
+            margin-left:20%;
+            width:60%;
+            height:auto;
+        }
+        .button {
+        margin-top:10px;
+        
+        }
+    </style>
+
+    <!---ALL POSTS AND COMMENTS--->
+    <div class="uploads" id="uploads">
+        <div class="post" id="op">
             <h3>SUBJECT</h3>
-                <div class="profile" style="width:30%;float:left;height:50%">
-                    <img src="test.jpg" style="width:25%;" />
-                    <br />
-                    <label>NameNamesson</label>
-                    <br />
-                    <label>Small bio with a bunch of useless text for no real reasons idk why</label>
-                </div>
-                <div class="text" style="width:70%;float:right;height:50%;">
-                    <label style="width:60%;float:left;">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat</label>
-                    <img src="test.jpg" style="width:40%;float:right" />
-                </div>
-        </div>
-        <hr style="float:unset;"/>
-        <div class="post" style="margin-top:10px;">
-            <div class="profile" style="width:30%;float:left;">
-                <img src="test.jpg" style="width:25%;" />
+            <hr />
+            <div class="profile">
+                <img class="profilepic" src="test.jpg" />
                 <br />
                 <label>NameNamesson</label>
                 <br />
                 <label>Small bio with a bunch of useless text for no real reasons idk why</label>
             </div>
-            <div class="text" style="width:70%;float:right;">
+            <div class="text">
+                <label style="width:60%;float:left;">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat</label>
+                <img src="test.jpg" style="float:right;height:90%" />
+            </div>
+            <hr />
+        </div>
+        <div class="post">
+            <div class="profile cprofile">
+                <img class="profilepic" src="test.jpg" />
+                <br />
+                <label>NameNamesson</label>
+                <br />
+                <label>Small bio with a bunch of useless text for no real reasons idk why</label>
+            </div>
+            <div class="text ctext">
                 <label>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?</label>
             </div>
+            <hr />
         </div>
-    </body>
+        <div class="post">
+            <div class="profile cprofile">
+                <img class="profilepic" src="test.jpg" />
+                <br />
+                <label>NameNamesson</label>
+                <br />
+                <label>Small bio with a bunch of useless text for no real reasons idk why</label>
+            </div>
+            <div class="text ctext">
+                <label>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?</label>
+            </div>
+            <hr />
+        </div>
+    </div>
+    <!--END OF POSTS AND COMMENTS-->
+
+    <div class="comment">
+        <h5>Comment:</h5>
+        <label class="error" id="error"></label>
+        <br />
+        <textarea class="input" ></textarea>
+        <input class="button" type="button" value="Post" onclick="Post(document.getElementById('text').value)" />
+    </div>
+
+    <script>
+
+        function Post(s)
+        {
+            if (s.length < 5)
+            {
+                document.getElementById("error").innerHTML = "The comment is too short.";
+                return;
+            }
+            
+        }
+    </script>
+</body>
 </html>
