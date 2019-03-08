@@ -114,6 +114,9 @@
 
     <script>
 
+        var bios = new Array();
+
+
         function Post(s)
         {
             //Checks if the comment is too short
@@ -171,7 +174,15 @@
         {
             var xml = ajax.responseXML;
 
+            var posts = xml.getElementByTagName("comment");
 
+            var inner = document.getElementById("uploads").innerHTML;
+            for (let post of posts)
+            {
+                inner += post.innerHTML;
+            }
+
+            document.getElementById("uploads").innerHTML = inner;
         }
         //Called when an update is requested
         function Update()
@@ -181,6 +192,7 @@
                 var post = "date=" + document.getElementById("date").value;
             }
 
+            //Calls UpdateHandle if it succeeds, alert if not
             Ajax("update", post, UpdateHandle(), function () { alert("Couldn't update") });
         }
     </script>
