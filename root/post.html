@@ -105,20 +105,83 @@
         <h5>Comment:</h5>
         <label class="error" id="error"></label>
         <br />
-        <textarea class="input" ></textarea>
+        <textarea class="input" id="comment"></textarea>
         <input class="button" type="button" value="Post" onclick="Post(document.getElementById('text').value)" />
     </div>
+
+    <!--USED FOR THE UPDATE FUNCTION-->
+    <input type="hidden" id="date" />
 
     <script>
 
         function Post(s)
         {
+            //Checks if the comment is too short
+            document.getElementById("error").innerHTML = "";
             if (s.length < 5)
             {
                 document.getElementById("error").innerHTML = "The comment is too short.";
                 return;
             }
+
+           
+            //Values to send via post
+            var post = "comment=" + document.getElementById("comment").innerHTML;
+
+            Ajax("comment.php", post, AjaxDone(), function () {
+                document.getElementById("error").innerHTML = "Couldn't upload comment";
+            });
+
             
+        }
+
+        //Handles the ajax part, done and error are both functions that should be called if need be
+        function Ajax(url, post, done, error)
+        {
+            var ajax = new XMLHttpRequest();
+
+            //Function that runs when the state changes
+            ajax.onreadystatechange = function () {
+                //Status == 200 and readystate == 4 means that it's done.
+                if (this.status == 200 && this.readyState == 4) {
+                    done(this);
+                }
+            }
+            ajax.onerror = error;
+
+            //Open, sets the right header and then sends it
+            ajax.open("POST", url, true);
+            ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            ajax.send(post);
+        }
+
+        function AjaxDone(response)
+        {
+            //Returns null if there was no response
+            var text = response.responseText;
+            if (text == "false")
+            {
+                document.getElementById("error").innerHTML = "Couldn't upload comment";
+                return;
+            }
+            Update();
+        }
+        //Handles the values returned from a valid update
+        function UpdateHandle(ajax)
+        {
+            var xml = ajax.responseXML;
+
+
+        }
+        //Called when an update is requested
+        function Update()
+        {
+            if (document.getElementById("date").value != "")
+            {
+                var post = "date=" + document.getElementById("date").value;
+            }
+
+            Ajax("update", post, UpdateHandle(), function () { alert("Couldn't update") });
         }
     </script>
 </body>
