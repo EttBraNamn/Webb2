@@ -65,6 +65,8 @@
                 <label>NameNamesson</label>
                 <br />
                 <label>Small bio with a bunch of useless text for no real reasons idk why</label>
+                <br />
+                <time>2019-02-27</time>
             </div>
             <div class="text">
                 <label style="width:60%;float:left;">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat</label>
@@ -79,6 +81,8 @@
                 <label>NameNamesson</label>
                 <br />
                 <label>Small bio with a bunch of useless text for no real reasons idk why</label>
+                <br />
+                <time>2019-02-27</time>
             </div>
             <div class="text ctext">
                 <label>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?</label>
@@ -92,6 +96,8 @@
                 <label>NameNamesson</label>
                 <br />
                 <label>Small bio with a bunch of useless text for no real reasons idk why</label>
+                <br />
+                <time>2019-02-27</time>
             </div>
             <div class="text ctext">
                 <label>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?</label>
@@ -106,7 +112,7 @@
         <label class="error" id="error"></label>
         <br />
         <textarea class="input" id="comment"></textarea>
-        <input class="button" type="button" value="Post" onclick="Post(document.getElementById('text').value)" />
+        <input class="button" type="button" value="Post" onclick="Post(document.getElementById('comment').value)" />
     </div>
 
     <!--USED FOR THE UPDATE FUNCTION-->
@@ -127,11 +133,10 @@
                 return;
             }
 
-           
             //Values to send via post
             var post = "comment=" + document.getElementById("comment").innerHTML;
 
-            Ajax("comment.php", post, AjaxDone(), function () {
+            Ajax("comment.php", post, AjaxDone, function () {
                 document.getElementById("error").innerHTML = "Couldn't upload comment";
             });
 
@@ -147,11 +152,26 @@
             ajax.onreadystatechange = function () {
                 //Status == 200 and readystate == 4 means that it's done.
                 if (this.status == 200 && this.readyState == 4) {
-                    done(this);
+                    done(ajax);
                 }
             }
             ajax.onerror = error;
 
+            //Getting the GET
+            var location = window.location.href;
+            var found = false;
+            var i = 0;
+            //Loops untill end of string or finding of "?"
+            for (; i < location.length && !found; ++i)
+            {
+                if (location[i] == "?")
+                {
+                    found = true;
+                }
+            }
+            url += "?" + location.substring(i);
+            alert(url);
+            //url = "C:/Users/anton.johansson26/Documents/GitHub/Webb2/root/" + url;
             //Open, sets the right header and then sends it
             ajax.open("POST", url, true);
             ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -161,12 +181,13 @@
         function AjaxDone(response)
         {
             //Returns null if there was no response
-            var text = response.responseText;
-            if (text == "false")
+
+            if (response == null)
             {
                 document.getElementById("error").innerHTML = "Couldn't upload comment";
                 return;
             }
+            var text = response.responseText;
             Update();
         }
         //Handles the values returned from a valid update
@@ -181,8 +202,12 @@
             {
                 inner += post.innerHTML;
             }
-
             document.getElementById("uploads").innerHTML = inner;
+
+            //Shifts the old date to the new one
+            var last = posts[posts.length - 1];
+            document.getElementById("date").innerHTML = last.getElementByTagName("time").innerHTML;
+
         }
         //Called when an update is requested
         function Update()
@@ -193,7 +218,7 @@
             }
 
             //Calls UpdateHandle if it succeeds, alert if not
-            Ajax("update", post, UpdateHandle(), function () { alert("Couldn't update") });
+            Ajax("update.php", post, UpdateHandle, function () { alert("Couldn't update") });
         }
     </script>
 </body>
