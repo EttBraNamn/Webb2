@@ -1,5 +1,7 @@
 <?php
 
+include 'globalVal.php';
+
 function AllowDBEdit()
 {
 	return true;
@@ -21,6 +23,41 @@ function CheckValidName(&$s)
 	return true;
 }
 
+//Check if a user exists
+function VerifyUser($username, $password)
+{
+	
+	$query = "SELECT * FROM users WHERE name=:name";
+
+	$connect = new PDO("mysql:host=" . SERVERNAME . ";dbname=" . DBNAME, USERNAME, PASSWORD);
+
+	if (!($stmt = $connect->prepare($query)))
+	{
+		return "error";
+	}
+
+	$stmt->bindParam(":name", $username);
+
+	if (!($stmt->execute()))
+	{
+		return "error";
+	}
+
+	$return = $stmt->fetch();
+
+	if (empty($return))
+	{
+		return "wrong";
+	}
+
+	//Checks if the password is valid
+	if(!password_verify($password, $return['password']))
+	{
+		return "wrong";
+	}
+
+	return "correct";
+}
 
 //Checks if the file is an allowed filetype
 function ImageCheckFiletype($path)
