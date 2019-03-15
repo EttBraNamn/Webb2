@@ -16,6 +16,18 @@ function HandlePost($post)
 	$toPrint .= $post['body'] . "</label>";
 	$toPrint .= "<img src=\"" .  $_GET['id'] . $post['image'] ."\" style=\"float:right;height:90%\" />";
 	$toPrint .= "</div><hr/>";
+
+	return $toPrint;
+}
+
+function HandleCommenst($comments)
+{
+	$users = array();
+
+	foreach ($comment as $comments)
+	{
+		$users.append();
+	}
 }
 
 //Everything html related before the post
