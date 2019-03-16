@@ -1,4 +1,65 @@
 <?php
+function Error($s)
+{
+	echo($s);
+	exit();
+}
+
+function HtmlEnd($comments)
+{
+	$toReturn = "";
+	$toReturn .= "<!--END OF POSTS AND COMMENTS--><div class=\"comment\"><h5>Comment:</h5><label class=\"error\" id=\"error\"></label><br /><textarea class=\"input\" id=\"comment\"></textarea>
+        <input class=\"button\" type=\"button\" value=\"Post\" onclick=\"Post(document.getElementById('comment').value)\" /></div><!--USED FOR THE UPDATE FUNCTION-->";
+
+	$toReturn .= "<input type=\"hidden\" id=\"date\" value=\"" . $comments[sizeof($comments) - 1]['date'] . " />";
+	$toReturn .= "<script type=\"text/javascript\" src=\"post.js\"></script></body></html>";
+	return $toReturn;
+}
+
+//Get all the needed bios
+function GetBios($comments)
+{
+	//Prepares the "IN" part of the query
+	$users = array();
+	//Get all the different users into an array
+	foreach ($comment as $comments)
+	{
+		$users[$comment['name']] = $comment['name'];
+	}
+	//Write it all out in a stringformat "('', '[name1]', '[name2]', ...)"
+	$sUsers = "(\'\'";
+	foreach ($s as $users)
+	{
+		$sUsers .= ",\'" . $s . "\'";
+	}
+	$sUsers .= ")";
+
+	$query = "SELECT * FROM users WHERE name IN" . $sUsers;
+
+	$connect = new PDO("mysql:host=" . SERVERNAME . ";dbname=" . DBNAME, USERNAME, PASSWORD);
+
+	if (!($stmt = $connect->prepare($query)))
+	{
+		Error("Couldn't prepare query, something might be wrong with the sql server connection.");
+	}
+
+	if (!($stmt->execute()))
+	{
+		Error("Couldn't execute query, something might be wrong with the query.");
+	}
+
+	$result = $stmt->fetch();
+
+	//Makes an associative array with all the needed names an bios
+	$toReturn = array();
+	foreach ($user as $result)
+	{
+		$toReturn[$user['name']] = $user['bio'];
+	}
+
+	return $toReturn;
+}
+
 //Returns OP:s post in html format
 function HandlePost($post)
 {
@@ -8,7 +69,7 @@ function HandlePost($post)
 	Select($query, $bio, $post['name']);
 
 	$toPrint = "<h3>" . $post['subject'] . "</h3><hr/>";
-	$toPrint .= "<div class=\"profile\"><img class=\"profilepic\" src=\"" . $post['name'] . ".jpg\"/>";
+	$toPrint .= "<div class=\"profile\"><img class=\"profilepic\" src=\"pic/" . $post['name'] . ".jpg\"/>";
 	$toPrint .= "<br/><label>" . $post['name']. "</label><br/>";
 	$toPrint .= "<label>" . $bio['bio'] . "</label><br/>";
 	$toPrint .= "<time>" . $post['date'] . "</time></div>";
@@ -20,14 +81,23 @@ function HandlePost($post)
 	return $toPrint;
 }
 
-function HandleCommenst($comments)
+function HandleComments($comments)
 {
-	$users = array();
-
+	$bios = GetBios($comments);
+	
+	$toReturn = "";
+	//Goes through all the made comments in their sorted order
 	foreach ($comment as $comments)
 	{
-		$users.append();
+		$toReturn .= "<div class=\"post\"><div class=\"profile cprofile\"><img class=\"profilepic\" src=\"pic/" . $comment['name'] . ".jpg\"/>";;
+		$toReturn .= "<br /><label>" . $comment['name'] . "</label>";
+		$toReturn .= "<br /><label>" . $bios['name'] . "</label>";
+		$toReturn .= "<br /><time>" . $comment['date'] . "</time>";
+		$toReturn .= " </div><div class=\"text ctext\"><label>" . $comment['body'] . "</label>";
+		$toReturn .= "</div><hr /></div>";
 	}
+
+	return $toReturn;
 }
 
 //Everything html related before the post
@@ -90,7 +160,7 @@ function Select($query, &$result, $bind)
 }
 
 include 'globalVal.php';
-include 'security.php'
+include 'security.php';
 
 session_start();
 
@@ -118,4 +188,9 @@ usort($comments, "sComments");
 
 //The string that's supposed to be echoed later
 $toPrint = HtmlStart();
+//Takes care of post and comment part
+$toPrint .= HandlePost($post);
+$toPrint .= HandleComments($comments);
+$toPrint .= HtmlEnd($comments);
+echo($toPrint);
 ?>
