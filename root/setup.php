@@ -61,6 +61,7 @@ $query = "CREATE TABLE comments (
 AddTable($query);
 
 $query = "CREATE TABLE post (
+  date datetime NOT NULL,
   id int(11) unsigned NOT NULL AUTO_INCREMENT,
   name varchar(30) COLLATE utf8_swedish_ci NOT NULL,
   subject varchar(100) COLLATE utf8_swedish_ci NOT NULL,

@@ -22,15 +22,15 @@ function GetBios($comments)
 	//Prepares the "IN" part of the query
 	$users = array();
 	//Get all the different users into an array
-	foreach ($comment as $comments)
+	foreach ($comments as $comment)
 	{
 		$users[$comment['name']] = $comment['name'];
 	}
 	//Write it all out in a stringformat "('', '[name1]', '[name2]', ...)"
-	$sUsers = "(\'\'";
-	foreach ($s as $users)
+	$sUsers = "(''";
+	foreach ($users as $s)
 	{
-		$sUsers .= ",\'" . $s . "\'";
+		$sUsers .= ",'" . $s . "'";
 	}
 	$sUsers .= ")";
 
@@ -40,19 +40,19 @@ function GetBios($comments)
 
 	if (!($stmt = $connect->prepare($query)))
 	{
-		Error("Couldn't prepare query, something might be wrong with the sql server connection.");
+		Error("Couldn't prepare query, something might be wrong with the sql server connection." . $query);
 	}
 
 	if (!($stmt->execute()))
 	{
-		Error("Couldn't execute query, something might be wrong with the query.");
+		Error("Couldn't execute query, something might be wrong with the query." . $query);
 	}
 
-	$result = $stmt->fetch();
+	$result = $stmt->fetchAll();
 
 	//Makes an associative array with all the needed names an bios
 	$toReturn = array();
-	foreach ($user as $result)
+	foreach ($result as $user)
 	{
 		$toReturn[$user['name']] = $user['bio'];
 	}
@@ -61,21 +61,23 @@ function GetBios($comments)
 }
 
 //Returns OP:s post in html format
-function HandlePost($post)
+function HandlePost($op)
 {
+	$op = $op[0];
 	//Get's the right bio
-	$query = "SELECT bio FROM users WHERE name=\"" .  $post['name'] . "\"";
+	
+	$query = "SELECT bio FROM users WHERE name=\"" .  $op['name'] . "\"";
 
 	Select($query, $bio);
 
-	$toPrint = "<h3>" . $post['subject'] . "</h3><hr/>";
-	$toPrint .= "<div class=\"profile\"><img class=\"profilepic\" src=\"pic/" . $post['name'] . ".jpg\"/>";
-	$toPrint .= "<br/><label>" . $post['name']. "</label><br/>";
-	$toPrint .= "<label>" . $bio['bio'] . "</label><br/>";
-	$toPrint .= "<time>" . $post['date'] . "</time></div>";
+	$toPrint = "<h3>" . $op['subject'] . "</h3><hr/>";
+	$toPrint .= "<div class=\"profile\"><img class=\"profilepic\" src=\"pic/" . $op['name'] . ".jpg\"/>";
+	$toPrint .= "<br/><label>" . $op['name']. "</label><br/>";
+	$toPrint .= "<label>" . $bio[0]['bio'] . "</label><br/>";
+	$toPrint .= "<time>" . $op['date'] . "</time></div>";
 	$toPrint .= "<div class=\"text\"><label style=\"width:60%;float:left;\">";
-	$toPrint .= $post['body'] . "</label>";
-	$toPrint .= "<img src=\"" .  $_GET['id'] . $post['image'] ."\" style=\"float:right;height:90%\" />";
+	$toPrint .= $op['body'] . "</label>";
+	$toPrint .= "<img src=\"" .  $_GET['id'] . $op['image'] ."\" style=\"float:right;height:90%\" />";
 	$toPrint .= "</div><hr/>";
 
 	return $toPrint;
@@ -85,13 +87,15 @@ function HandleComments($comments)
 {
 	$bios = GetBios($comments);
 	
+	var_dump($bios);
+	
 	$toReturn = "";
 	//Goes through all the made comments in their sorted order
-	foreach ($comment as $comments)
+	foreach ($comments as $comment)
 	{
 		$toReturn .= "<div class=\"post\"><div class=\"profile cprofile\"><img class=\"profilepic\" src=\"pic/" . $comment['name'] . ".jpg\"/>";;
 		$toReturn .= "<br /><label>" . $comment['name'] . "</label>";
-		$toReturn .= "<br /><label>" . $bios['name'] . "</label>";
+		$toReturn .= "<br /><label>" . $bios[$comment['name']] . "</label>";
 		$toReturn .= "<br /><time>" . $comment['date'] . "</time>";
 		$toReturn .= " </div><div class=\"text ctext\"><label>" . $comment['body'] . "</label>";
 		$toReturn .= "</div><hr /></div>";
@@ -182,7 +186,6 @@ $query = "SELECT * FROM comments WHERE id=\"" .  $_GET['id'] . "\"";
 
 Select($query, $comments, $_GET['id']);
 
-var_dump($comments);
 //Sorts all the comments by date using the comparison function sComments
 usort($comments, "sComments");
 
