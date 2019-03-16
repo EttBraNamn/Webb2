@@ -64,9 +64,9 @@ function GetBios($comments)
 function HandlePost($post)
 {
 	//Get's the right bio
-	$query = "SELECT bio FROM users WHERE name=:bind";
+	$query = "SELECT bio FROM users WHERE name=\"" .  $post['name'] . "\"";
 
-	Select($query, $bio, $post['name']);
+	Select($query, $bio);
 
 	$toPrint = "<h3>" . $post['subject'] . "</h3><hr/>";
 	$toPrint .= "<div class=\"profile\"><img class=\"profilepic\" src=\"pic/" . $post['name'] . ".jpg\"/>";
@@ -133,30 +133,29 @@ function sComments($lhs, $rhs)
 }
 
 //the sql reqest that will be needed for this page
-function Select($query, &$result, $bind)
+function Select($query, &$result)
 {
 	
 	$connect = new PDO("mysql:host=" . SERVERNAME . ";dbname=" . DBNAME, USERNAME, PASSWORD);
 
 	if (!($stmt = $connect->prepare($query)))
 	{
-		Error("Couldn't prepare query, something might be wrong with the sql server connection.");
+		Error("Couldn't prepare query, something might be wrong with the sql server connection." . $query);
 	}
-
-	$stmt->bindParam(":bind", $bind);
 
 	if (!($stmt->execute()))
 	{
-		Error("Couldn't execute query, something might be wrong with the query.");
+		Error("Couldn't execute query, something might be wrong with the query." . $query);
 	}
 
 	$result = $stmt->fetch();
 
-	if(empty($return))
+	if(empty($result))
 	{
-		Error("Couldn't find the requested post, something must be wrong with the link.");
+		Error("Couldn't find the requested post, something must be wrong with the link." . $query);
 	}
-
+	
+	return $result;
 }
 
 include 'globalVal.php';
@@ -173,16 +172,17 @@ if (!isset($_GET['id']))
 
 //Get the right uploaded post as decided by ID
 
-$query = "SELECT * FROM posts WHERE id=:bind";
+$query = "SELECT * FROM post WHERE id=\"" .  $_GET['id'] . "\"";
 
-Select($query, $post, $_GET['id']);
+Select($query, $post);
 
 //Get all the comments that related to said post
 
-$query = "SELECT * FROM comments WHERE id=:bind";
+$query = "SELECT * FROM comments WHERE id=\"" .  $_GET['id'] . "\"";
 
 Select($query, $comments, $_GET['id']);
 
+var_dump($comments);
 //Sorts all the comments by date using the comparison function sComments
 usort($comments, "sComments");
 
