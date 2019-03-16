@@ -148,7 +148,7 @@ function Select($query, &$result)
 		Error("Couldn't execute query, something might be wrong with the query." . $query);
 	}
 
-	$result = $stmt->fetch();
+	$result = $stmt->fetchAll();
 
 	if(empty($result))
 	{
