@@ -6,11 +6,17 @@ include 'security.php';
 function Error($s)
 {
 	$s = "Comment failed: " . $s; 
-	return $s;
+	echo($s);
+	exit();
 }
+
 
 //Makes sure that the user is logged in
 session_start();
+if (!isset($_SESSION['name']))
+{
+	Error("Not logged in");
+}
 if (VerifyUser($_SESSION['name'], $_SESSION['password']) != "correct")
 {
 	Error("Not logged in");

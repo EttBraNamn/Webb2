@@ -57,7 +57,7 @@ function HandleComments($comments)
 	foreach ($comments as $comment)
 	{
 		$toReturn = "<comment>";
-		$toReturn .= "<div class=\"post\"><div class=\"profile cprofile\"><img class=\"profilepic\" src=\"pic/" . $comment['name'] . ".jpg\"/>";;
+		$toReturn .= "<div class=\"post\"><div class=\"profile cprofile\"><img class=\"profilepic\" src=\"pic/" . $comment['name'] . ".jpg\"/>";
 		$toReturn .= "<br /><label>" . $comment['name'] . "</label>";
 		$toReturn .= "<br /><label>" . $bios[$comment['name']] . "</label>";
 		$toReturn .= "<br /><time>" . $comment['date'] . "</time>";
@@ -121,7 +121,7 @@ if(!isset($_GET['id']))
 {
 	Error("Missing id");
 }
-if(!isset($_POST['date'])
+if(!isset($_POST['date']))
 {
 	Error("Missing date");
 }
