@@ -23,6 +23,14 @@ function CheckValidName(&$s)
 	return true;
 }
 
+//Clean input for comment or post
+function CleanInput($s)
+{
+	$toReturn = strip_tags($s);
+	return $toReturn;
+}
+
+
 //Check if a user exists
 function VerifyUser($username, $password)
 {

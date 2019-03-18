@@ -65,7 +65,7 @@ function AjaxDone(response) {
 function UpdateHandle(ajax) {
     var xml = ajax.responseXML;
 
-    var posts = xml.getElementByTagName("comment");
+    var posts = xml.getElementsByTagName("comment");
 
     var inner = document.getElementById("uploads").innerHTML;
     for (let post of posts) {
@@ -80,10 +80,14 @@ function UpdateHandle(ajax) {
 }
 //Called when an update is requested
 function Update() {
+    var post = "";
     if (document.getElementById("date").value != "") {
-        var post = "date=" + document.getElementById("date").value;
+        post = "date=" + document.getElementById("date").value;
     }
-
+    else
+    {
+        post = "0";
+    }
     //Calls UpdateHandle if it succeeds, alert if not
     Ajax("update.php", post, UpdateHandle, function () { alert("Couldn't update") });
 }
