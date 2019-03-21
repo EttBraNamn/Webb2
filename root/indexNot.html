@@ -1,21 +1,22 @@
-Ôªø<html>
+<html>
 <head>
     <meta charset="UTF-8" />
-    <title>Homepage</title>
+    <title>AHHH</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <script type="text/javascript" src="post.js"></script>
+    <script type="text/javascript" src="index.js"></script>
 
 
-    <div class="header">
-        <input class="hbutton" type="button" style="width:24.8%" value="Make Post" onclick="MakePost()" />
-        <input class="hbutton" type="button" style="width:24.8%" value="Profile" href="profile.php" />
-        <input class="hbutton" type="button" style="width:24.8%" value="Notifications" href="alert.php" />
-        <input class="hbutton" type="button" style="width:24.8%" value="Log Out" href="logout.php" />
+    <div class="header" id="not">
+        <h2>You're not logged in. Do you want to do it now?</h2>
+        <input type="button" onclick="window.location.href = 'login.php';" style="width:10%"value="Yes"/>
+        <input type="button" onclick="window.location.href = 'signup.php';" style="width:10%" value="Sign up" />
+        <input type="button" onclick="document.getElementById('not').innerHTML = '';"style="width:10%" value="No"/>
     </div>
 
     <div id="input" style="width:45%;margin-top:10px;">
+
     </div>
 
     <div style="" class="navigation">
@@ -25,7 +26,7 @@
     </div>
 
     <div class="post">
-        <p class="subject"><a href="post.php?id=1">En l√§nk till en post</a></p>
+        <p class="subject"><a href="post.php?id=1">En l‰nk till en post</a></p>
         <div class="profile">
             <img class="profilepic" src="test.jpg" />
             <br />
@@ -37,7 +38,7 @@
         </div>
     </div>
     <div class="post">
-        <p class="subject"><a href="post.php?id=1">En l√§nk till en post</a></p>
+        <p class="subject"><a href="post.php?id=1">En l‰nk till en post</a></p>
         <div class="profile">
             <img class="profilepic" src="test.jpg" />
             <br />
@@ -49,7 +50,7 @@
         </div>
     </div>
     <div class="post">
-        <p class="subject"><a href="post.php?id=1">En l√§nk till en post</a></p>
+        <p class="subject"><a href="post.php?id=1">En l‰nk till en post</a></p>
         <div class="profile">
             <img class="profilepic" src="test.jpg" />
             <br />
@@ -61,7 +62,7 @@
         </div>
     </div>
     <div class="post">
-        <p class="subject"><a href="post.php?id=1">En l√§nk till en post</a></p>
+        <p class="subject"><a href="post.php?id=1">En l‰nk till en post</a></p>
         <div class="profile">
             <img class="profilepic" src="test.jpg" />
             <br />
@@ -73,7 +74,7 @@
         </div>
     </div>
     <div class="post">
-        <p class="subject"><a href="post.php?id=1">En l√§nk till en post</a></p>
+        <p class="subject"><a href="post.php?id=1">En l‰nk till en post</a></p>
         <div class="profile">
             <img class="profilepic" src="test.jpg" />
             <br />
@@ -85,7 +86,7 @@
         </div>
     </div>
     <div class="post">
-        <p class="subject"><a href="post.php?id=1">En l√§nk till en post</a></p>
+        <p class="subject"><a href="post.php?id=1">En l‰nk till en post</a></p>
         <div class="profile">
             <img class="profilepic" src="test.jpg" />
             <br />

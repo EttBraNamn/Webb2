@@ -44,8 +44,6 @@ function Ajax(url, post, done, error) {
     }
     url += "?" + location.substring(i);
     alert(url);
-    //url = "C:/Users/anton.johansson26/Documents/GitHub/Webb2/root/" + url;
-    //Open, sets the right header and then sends it
     ajax.open("POST", url, true);
     ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     ajax.send(post);
