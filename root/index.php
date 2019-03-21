@@ -25,10 +25,12 @@ function Navigator($page)
 			$numbers .= "<a onclick=\"window.location.href = 'index.php?page=5'\">5</a>  </b>";
 		}
 	}
+	//If page is more than 3
 	else
 	{
 		for ($i = 0; $i < 5; ++$i ++$start)
 		{
+		//If it's the middle one
 			if ($i == 2)
 			{
 				$numbers .= "<a onclick=\"window.location.href = 'index.php?page=" . $start . "'\">[". $start . "]</a> - ";
@@ -38,10 +40,14 @@ function Navigator($page)
 				$numbers .= "<a onclick=\"window.location.href = 'index.php?page=" . $start . "'\">". $start . "</a> - ";
 			}
 		}
-
+		//removes the trailing " - ";
 		$numbers = substr(0, $numbers.lenght - 3);
 		$numbers .= "</b>";
 	}
+	//Wraps $numbers around the neccesary strings
+	$toReturn = "<div class=\"navigation\"><img src=\"left.png\" onclick=\"Navigate(-1)\" /><label>" . $numbers;
+	$toReturn .= "</label><img src=\"right.png\" onclick=\"Navigate(1)\" /></div>";
+	return $toReturn;
 }
 
 //The start if the user isn't logged in
