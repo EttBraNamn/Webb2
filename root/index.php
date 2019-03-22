@@ -1,4 +1,111 @@
 <?php
+function EndHtml()
+{
+	return "</body></html>";
+}
+
+function Error($s)
+{
+	echo($s);
+	exit();
+}
+//Function used to sort comments
+function sPosts($lhs, $rhs)
+{
+	if ($lhs['id'] < $rhs['id'])
+	{
+		return -1;
+	}
+	else if ($lhs['id'] > $rhs['id'])
+	{
+		return 1;
+	}
+	return 0;
+}
+
+//Returns an array of posts
+function GetPosts($end, $start)
+{
+	$query = "SELECT * FROM posts WHERE id<" . $start . " AND id>" . $end;
+	
+	$connect = new PDO("mysql:host=" . SERVERNAME . ";dbname=" . DBNAME, USERNAME, PASSWORD);
+
+	if (!($stmt = $connect->prepare($query)))
+	{
+		Error("Couldn't prepare query, something might be wrong with the sql server connection." . $query);
+	}
+
+	if (!($stmt->execute()))
+	{
+		Error("Couldn't execute query, something might be wrong with the query." . $query);
+	}
+
+	$toReturn = $stmt->fetchAll();
+
+	rsort($toReturn, "sPosts");
+
+	return $toReturn;
+}
+
+//returns the amount of posts in database
+function GetPostCount()
+{
+	$query = "SELECT TOP(1) id FROM posts ORDER BY id DESC";
+
+	
+	$connect = new PDO("mysql:host=" . SERVERNAME . ";dbname=" . DBNAME, USERNAME, PASSWORD);
+
+	if (!($stmt = $connect->prepare($query)))
+	{
+		Error("Couldn't prepare query, something might be wrong with the sql server connection." . $query);
+	}
+
+	if (!($stmt->execute()))
+	{
+		Error("Couldn't execute query, something might be wrong with the query." . $query);
+	}
+
+	return $stmt->fetch();
+}
+//Returns the post part of the site
+function Posts($page)
+{
+	//Gets the end and start id's
+	$page *= 20;
+	$count = GetPostCount();
+
+	if (($count - $page) < 0)
+	{
+		$end = 0;
+		$start = 20;
+	}
+	else
+	{
+		$end = $count - $page;
+		$start = $end + 20;
+	}
+	$start += 1;
+	$end -= 1;
+	
+	$posts = GetPosts($end, $start);
+
+	$toReturn = "";
+	$toReturn .= "<div>";
+	foreach ($posts as $p)
+	{
+		$toReturn .= "<div class=\"post\"><p class=\"subject\"><a href=\"post.php?id=" . $p['id'] . "\">";
+		$toReturn .= $p['subject'] . "</a></p><div class=\"profile\">";
+		$toReturn .= "<img class=\"profilepic\" src=\"pic/" . $p['name'] . ".jpg\"/><br/>";
+		$toReturn .= "<label class=\"name\">" . $p['name'] . "</label></div>";
+		$toReturn = "<div class=\"text\"><label style=\"width:60%;float:left;\">" . $p['body'] "</label>";
+		$toReturn .= "<img class=\"pic\" src=\"" . $p['id'] . "." . $p['image'] . "/>";
+		$toReturn .= "</div></div>";
+	}
+
+	$toReturn .= "</div>";
+	return $toReturn;
+}
+
 //Responsible for the Navigator
 function Navigator($page)
 {
@@ -101,7 +208,7 @@ function LoggedStart()
 }
 
 //Returs the first part of the html
-function Start($loggedIn)
+function StartHtml($loggedIn)
 {
 	if ($loggedIn)
 	{
@@ -128,12 +235,18 @@ else
 $toPrint = "";
 if (isset($_SESSION['name']))
 {
-	$toPrint .= Start(VerifyUser($_SESSION['name'], $_SESSION['password']));
+	$toPrint .= StartHtml(VerifyUser($_SESSION['name'], $_SESSION['password']));
 }
 else
 {
-	$toPrint .= Start(false);
+	$toPrint .= StartHtml(false);
 }
 
 $toPrint .= Navigator($page);
+$toPrint .= Posts($page);
+$toPrint .= Navigator($page);
+
+$toPrint .= EndHtml();
+
+echo($toPrint);
 ?>
