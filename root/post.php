@@ -87,7 +87,6 @@ function HandleComments($comments)
 {
 	$bios = GetBios($comments);
 	
-	var_dump($bios);
 	
 	$toReturn = "";
 	//Goes through all the made comments in their sorted order
@@ -137,7 +136,7 @@ function sComments($lhs, $rhs)
 }
 
 //the sql reqest that will be needed for this page
-function Select($query, &$result)
+function Select($query, &$result, $allowEmpty = false)
 {
 	
 	$connect = new PDO("mysql:host=" . SERVERNAME . ";dbname=" . DBNAME, USERNAME, PASSWORD);
@@ -154,7 +153,7 @@ function Select($query, &$result)
 
 	$result = $stmt->fetchAll();
 
-	if(empty($result))
+	if(empty($result) && !$allowEmpty)
 	{
 		Error("Couldn't find the requested post, something must be wrong with the link." . $query);
 	}
@@ -184,7 +183,7 @@ Select($query, $post);
 
 $query = "SELECT * FROM comments WHERE id=\"" .  $_GET['id'] . "\"";
 
-Select($query, $comments, $_GET['id']);
+Select($query, $comments, $_GET['id'], true);
 
 //Sorts all the comments by date using the comparison function sComments
 usort($comments, "sComments");

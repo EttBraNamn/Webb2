@@ -12,11 +12,11 @@ function Error($s)
 //Function used to sort comments
 function sPosts($lhs, $rhs)
 {
-	if ($lhs['id'] < $rhs['id'])
+	if ($lhs['id'] > $rhs['id'])
 	{
 		return -1;
 	}
-	else if ($lhs['id'] > $rhs['id'])
+	else if ($lhs['id'] < $rhs['id'])
 	{
 		return 1;
 	}
@@ -26,7 +26,7 @@ function sPosts($lhs, $rhs)
 //Returns an array of posts
 function GetPosts($end, $start)
 {
-	$query = "SELECT * FROM posts WHERE id<" . $start . " AND id>" . $end;
+	$query = "SELECT * FROM post WHERE id<" . $start . " AND id>" . $end;
 	
 	$connect = new PDO("mysql:host=" . SERVERNAME . ";dbname=" . DBNAME, USERNAME, PASSWORD);
 
@@ -42,7 +42,7 @@ function GetPosts($end, $start)
 
 	$toReturn = $stmt->fetchAll();
 
-	rsort($toReturn, "sPosts");
+	usort($toReturn, "sPosts");
 
 	return $toReturn;
 }
@@ -50,7 +50,7 @@ function GetPosts($end, $start)
 //returns the amount of posts in database
 function GetPostCount()
 {
-	$query = "SELECT TOP(1) id FROM posts ORDER BY id DESC";
+	$query = "SELECT max(id) FROM post ";
 
 	
 	$connect = new PDO("mysql:host=" . SERVERNAME . ";dbname=" . DBNAME, USERNAME, PASSWORD);
@@ -73,8 +73,9 @@ function Posts($page)
 	//Gets the end and start id's
 	$page *= 20;
 	$count = GetPostCount();
-
-	if (($count - $page) < 0)
+	$count = $count[0];
+	$dif = $count - $page;
+	if (0 > $dif)
 	{
 		$end = 0;
 		$start = 20;
@@ -97,8 +98,8 @@ function Posts($page)
 		$toReturn .= $p['subject'] . "</a></p><div class=\"profile\">";
 		$toReturn .= "<img class=\"profilepic\" src=\"pic/" . $p['name'] . ".jpg\"/><br/>";
 		$toReturn .= "<label class=\"name\">" . $p['name'] . "</label></div>";
-		$toReturn = "<div class=\"text\"><label style=\"width:60%;float:left;\">" . $p['body'] "</label>";
-		$toReturn .= "<img class=\"pic\" src=\"" . $p['id'] . "." . $p['image'] . "/>";
+		$toReturn .= "<div class=\"text\"><label style=\"width:60%;float:left;\">" . $p['body'] . "</label>";
+		$toReturn .= "<img class=\"pic\" src=\"" . $p['id'] . "." . $p['image'] . "\"/>";
 		$toReturn .= "</div></div>";
 	}
 
@@ -125,8 +126,8 @@ function Navigator($page)
 		}
 		else
 		{
-			$numbers .= "<b>  <a onclick=\"window.location.href = 'index.php?page=1'\">[1]</a> - ";
-			$numbers .= "<a onclick=\"window.location.href = 'index.php?page=2'\">2</a> - ";
+			$numbers .= "<b>  <a onclick=\"window.location.href = 'index.php?page=1'\">1</a> - ";
+			$numbers .= "<a onclick=\"window.location.href = 'index.php?page=2'\">[2]</a> - ";
 			$numbers .= "<a onclick=\"window.location.href = 'index.php?page='3'\">3</a> - ";
 			$numbers .= "<a onclick=\"window.location.href = 'index.php?page=4'\">4</a> - ";
 			$numbers .= "<a onclick=\"window.location.href = 'index.php?page=5'\">5</a>  </b>";
@@ -135,7 +136,8 @@ function Navigator($page)
 	//If page is more than 3
 	else
 	{
-		for ($i = 0; $i < 5; ++$i ++$start)
+		$numbers .= "<b>";
+		for ($i = 0; $i < 5; ++$i, ++$start)
 		{
 		//If it's the middle one
 			if ($i == 2)
@@ -148,7 +150,7 @@ function Navigator($page)
 			}
 		}
 		//removes the trailing " - ";
-		$numbers = substr(0, $numbers.lenght - 3);
+		$numbers = substr($numbers, 0, strlen($numbers) - 3);
 		$numbers .= "</b>";
 	}
 	//Wraps $numbers around the neccesary strings
@@ -192,14 +194,14 @@ function LoggedStart()
     <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">
 </head>
 <body>
-    <script type=\"text/javascript\" src=\"post.js\"></script>
+    <script type=\"text/javascript\" src=\"index.js\"></script>
 
 
     <div class=\"header\">
         <input class=\"hbutton\" type=\"button\" style=\"width:24.8%\" value=\"Make Post\" onclick=\"MakePost()\" />
-        <input class=\"hbutton\" type=\"button\" style=\"width:24.8%\" value=\"Profile\" href=\"profile.php\" />
-        <input class=\"hbutton\" type=\"button\" style=\"width:24.8%\" value=\"Notifications\" href=\"alert.php\" />
-        <input class=\"hbutton\" type=\"button\" style=\"width:24.8%\" value=\"Log Out\" href=\"logout.php\" />
+        <input class=\"hbutton\" type=\"button\" style=\"width:24.8%\" value=\"Profile\" onclick=\"window.location.href = 'profile.php'\" />
+        <input class=\"hbutton\" type=\"button\" style=\"width:24.8%\" value=\"Notifications\" onclick=\"window.location.href = 'alert.php'\" />
+        <input class=\"hbutton\" type=\"button\" style=\"width:24.8%\" value=\"Log Out\" onclick=\"window.location.href = 'logout.php'\" />
     </div>
 
     <div id=\"input\" style=\"width:45%;margin-top:10px;\">
@@ -225,12 +227,15 @@ session_start();
 //Checks if there exists any GET
 if (isset($_GET['page']))
 {
-	$page = $_GET['page'];
+	$page = intval($_GET['page']);
+	
 }
 else 
 {
 	$page = 1;
 }
+
+
 
 $toPrint = "";
 if (isset($_SESSION['name']))

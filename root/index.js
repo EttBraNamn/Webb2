@@ -11,12 +11,14 @@ function Navigate(dif) {
     }
     var num = 1;
     if (found) {
-        num = parseInt(location.substring(i), 10);
+        num = parseInt(location.substring(i + 5), 10);
+		alert(num);
     }
-    if (num > 1) {
+    if (num >= 1) {
         num += dif;
     }
     var url = "index.php?page=" + num;
+	alert(url);
     window.location.href = url;
 }
 function MakePost() {
