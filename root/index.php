@@ -99,7 +99,7 @@ function Posts($page)
 		$toReturn .= "<img class=\"profilepic\" src=\"pic/" . $p['name'] . ".jpg\"/><br/>";
 		$toReturn .= "<label class=\"name\">" . $p['name'] . "</label></div>";
 		$toReturn .= "<div class=\"text\"><label style=\"width:60%;float:left;\">" . $p['body'] . "</label>";
-		$toReturn .= "<img class=\"pic\" src=\"" . $p['id'] . "." . $p['image'] . "\"/>";
+		$toReturn .= "<img class=\"pic\" src=\"post/" . $p['id'] . "." . $p['image'] . "\"/>";
 		$toReturn .= "</div></div>";
 	}
 
@@ -200,7 +200,7 @@ function LoggedStart()
     <div class=\"header\">
         <input class=\"hbutton\" type=\"button\" style=\"width:24.8%\" value=\"Make Post\" onclick=\"MakePost()\" />
         <input class=\"hbutton\" type=\"button\" style=\"width:24.8%\" value=\"Profile\" onclick=\"window.location.href = 'profile.php'\" />
-        <input class=\"hbutton\" type=\"button\" style=\"width:24.8%\" value=\"Notifications\" onclick=\"window.location.href = 'alert.php'\" />
+        <input class=\"hbutton\" type=\"button\" style=\"width:24.8%\" value=\"Post History\" onclick=\"window.location.href = 'list.php'\" />
         <input class=\"hbutton\" type=\"button\" style=\"width:24.8%\" value=\"Log Out\" onclick=\"window.location.href = 'logout.php'\" />
     </div>
 
@@ -240,7 +240,7 @@ else
 $toPrint = "";
 if (isset($_SESSION['name']))
 {
-	$toPrint .= StartHtml(VerifyUser($_SESSION['name'], $_SESSION['password']));
+	$toPrint .= StartHtml((VerifyUser($_SESSION['name'], $_SESSION['password'])  == "correct"));
 }
 else
 {
@@ -249,6 +249,17 @@ else
 
 $toPrint .= Navigator($page);
 $toPrint .= Posts($page);
+if (isset($_GET['error']))
+{
+	$ar = array();
+	$ar['database'] = "Couldn't upload post, somethings wrong with the database";
+	$ar['image'] = "Couldn't upload post, somethings wrong with the uploaded image. Makes sure that it's a jpeg, png or gif file";
+	$ar['user'] = "Couldn't upload post, you need to log in before trying to post";
+	$ar['input'] = "Couldn't upload post, somethings wrong with the values given";
+	$ar['empty'] = "Couldn't upload post, you need to fill out all fields";
+
+	$toPrint .= "<div style=\"background-color:red;margin-top:5px;margin-bottom:5px;width:20%;\"><label>". $ar[$_GET['error']] . "</label></div>";
+}
 $toPrint .= Navigator($page);
 
 $toPrint .= EndHtml();

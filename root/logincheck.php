@@ -15,6 +15,7 @@ $answer = VerifyUser($_POST['name'], $_POST['password']);
 if ($answer != "correct")
 {
 	header("location: login.php?error=" . $answer);
+	exit();
 }
 
 $_SESSION['name'] = $_POST['name'];

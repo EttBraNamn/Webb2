@@ -3,9 +3,15 @@ function Navigate(dif) {
     var location = window.location.href;
     var found = false;
     var i = 0;
+    var search = "?";
+    if (location.includes("&"))
+    {
+        search = "&";
+    }
+
     //Loops untill end of string or finding of "?"
     for (; i < location.length && !found; ++i) {
-        if (location[i] == "?") {
+        if (location[i] == search) {
             found = true;
         }
     }

@@ -112,7 +112,7 @@ if(!FileHandling($filePath))
 
 
 //Uploads user to database
-$query = "INSERT INTO users (name, password, bio) VALUES (:name, :password, \" \")";
+$query = "INSERT INTO users (name, password, bio) VALUES (:name, :password, \"None\")";
 
 
 if (!$connect = new PDO("mysql:host=" . SERVERNAME . ";dbname=" . DBNAME, USERNAME, PASSWORD))
@@ -138,4 +138,7 @@ session_start();
 
 $_SESSION["name"] = $name;
 $_SESSION["password"] = $password;
+
+header("location: login.php");
+exit();
 ?>

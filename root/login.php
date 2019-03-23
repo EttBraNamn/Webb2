@@ -25,7 +25,8 @@ function Write($a = "n")
                 <br />
 				<div style=\"background-color:red;margin-top:5px;margin-bottom:5px\">
 				<label>". $arr[$a] . "</label>
-				</div>
+                </div>
+                <p style=\"font-size:15px;\">Don't have an account?<br/> <a href=\"signup.php\">Sign up!</a></p>
                 <input type=\"submit\" disabled=\"true\" name=\"submit\" id=\"submit\"/>
             </form>
         </div>

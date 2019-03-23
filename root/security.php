@@ -59,7 +59,7 @@ function VerifyUser($username, $password)
 	}
 
 	//Checks if the password is valid
-	if(!password_verify($password, $return['password']))
+	if($password == $return['password'])
 	{
 		return "wrong";
 	}
