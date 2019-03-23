@@ -35,7 +35,7 @@ if (!isset($_GET['id']))
 $name = $_SESSION['name'];
 $id = $_GET['id'];
 $body = CleanInput($_POST['comment']);
-$time = $date->format("Y-m-d H:i:s", time());
+$time = date("Y-m-d H:i:s", time());
 //"INSERT INTO users (name, password, bio) VALUES (:name, :password, \" \")";
 
 $query = "INSERT INTO comments (date, name, body, id) VALUES (:date, :name, :body, :id)";

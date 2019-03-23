@@ -74,3 +74,5 @@ AddTable($query);
 
 echo("Database done!");
 ?>
+
+
