@@ -65,36 +65,37 @@ if(!$stmt = $connect->prepare($query))
 {
 	Error("database");
 }
-$stmt->bindParam(":name", $time);
+$stmt->bindParam(":name", $name);
 if (!$stmt->execute())
 {
 	Error("database");
 }
 
 $list = $stmt->fetchAll();
-
+$list = $list[0]['list'];
 $listArray = array();
 $count = -1;
-foreach ($list as $char)
+
+for ($i = 0; $i < strlen($list); ++$i)
 {
-	if ($char == ',')
+	if ($list[$i] == ',')
 	{
 		++$count;
 		$listArray[$count]  = "";
 	}
 	else
 	{
-		$listArray[$count] .= $char;
+		$listArray[$count] .= $list[$i];
 	}
 }
 
-$list = "";
 if (!in_array($id, $listArray))
 {
 	$list .= "," . $id;
 }
 else
 {
+	$list = "";
 	foreach ($listArray as $elem)
 	{
 		if ($elem != $id)
@@ -112,7 +113,7 @@ if(!$stmt = $connect->prepare($query))
 	Error("database");
 }
 $stmt->bindParam(":list", $list);
-$stmt->bindParam(":name", $time);
+$stmt->bindParam(":name", $name);
 if (!$stmt->execute())
 {
 	Error("database");

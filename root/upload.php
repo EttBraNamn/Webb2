@@ -113,7 +113,7 @@ if(!$stmt = $connect->prepare($query))
 {
 	Error("database");
 }
-$stmt->bindParam(":name", $time);
+$stmt->bindParam(":name", $name);
 if (!$stmt->execute())
 {
 	Error("database");
@@ -126,7 +126,7 @@ if (empty($list))
 }
 else
 {
-	$list = $list[0];
+	$list = $list[0]['list'];
 }
 $list .= "," . $id;
 //Updates the list to feature the new post aswell
