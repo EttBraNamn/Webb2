@@ -57,6 +57,67 @@ if (!($stmt->execute()))
 	Error("Couldn't execute query");
 }
 
+
+//Get's the preexisting list
+$query = "SELECT list from users WHERE name=:name";
+
+if(!$stmt = $connect->prepare($query))
+{
+	Error("database");
+}
+$stmt->bindParam(":name", $time);
+if (!$stmt->execute())
+{
+	Error("database");
+}
+
+$list = $stmt->fetchAll()[0]['list'];
+
+$listArray = array();
+$count = -1;
+foreach ($list as $char)
+{
+	if ($char == ',')
+	{
+		++$count;
+		$listArray[$count]  = "";
+	}
+	else
+	{
+		$listArray[$count] .= $char;
+	}
+}
+
+if (!in_array($id, $listArray)
+{
+	$list .= "," . $id;
+}
+else
+{
+	foreach ($listArray as $elem)
+	{
+		$list = "";
+		if ($elem != $id)
+		{
+			$list .= "," . $elem;
+		}
+	}
+	$list .= "," . $id;
+}
+
+//Updates the list to feature the new post aswell
+$query "UPDATE users SET list=:list WHERE name=:name";
+if(!$stmt = $connect->prepare($query))
+{
+	Error("database");
+}
+$stmt->bindParam(":list", $list);
+$stmt->bindParam(":name", $time);
+if (!$stmt->execute())
+{
+	Error("database");
+}
+
 return "Comment uploaded!";
 
 ?>

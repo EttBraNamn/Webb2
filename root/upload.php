@@ -39,8 +39,17 @@ if (!ImageCheckFiletype($_FILES['file']['tmp_name']))
 $name = $_SESSION['name'];
 
 $fin = new finfo(FILEINFO_MIME_TYPE);
-
 $fileType = $fin->file($_FILES['file']['tmp_name']);
+$i = 0;
+for ($stop = false; $i < strlen($fileType) && !$stop; ++$i)
+{
+	if ($fileType[$i] == '/')
+	{
+		$stop = true;
+	}
+}
+$fileType = substr($fileType, $i);
+
 $subject = CleanInput($_POST['subject']);
 $body = CleanInput($_POST['text']);
 $time = date("Y-m-d H:i:s", time());
@@ -93,9 +102,47 @@ if(empty($result))
     Error("database");
 }
 
-$id = $result[0];
-
+$id = $result[0]['id'];
+//Saves the image
 FileHandling($id . ".". $fileType);
-header("location: post.php?id=" . $id[0]);
+
+//Get's the preexisting list
+$query = "SELECT list from users WHERE name=:name";
+
+if(!$stmt = $connect->prepare($query))
+{
+	Error("database");
+}
+$stmt->bindParam(":name", $time);
+if (!$stmt->execute())
+{
+	Error("database");
+}
+
+$list = $stmt->fetchAll();
+if (empty($list))
+{
+	$list = "";
+}
+else
+{
+	$list = $list[0];
+}
+$list .= "," . $id;
+//Updates the list to feature the new post aswell
+$query = "UPDATE users SET list=\"" . $list .  "\" WHERE name=:name";
+if(!$stmt = $connect->prepare($query))
+{
+	Error($query);
+}
+
+$stmt->bindParam(":name", $name);
+if (!$stmt->execute())
+{
+	Error($query);
+}
+
+//Open the specific post
+header("location: post.php?id=" . $id);
 exit();
 ?>  

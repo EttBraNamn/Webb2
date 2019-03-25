@@ -1,7 +1,7 @@
 var bios = new Array();
 
 
-function Post(s) {
+function A(s) {
     //Checks if the comment is too short
     document.getElementById("error").innerHTML = "";
     if (s.length < 5) {
@@ -15,8 +15,6 @@ function Post(s) {
     Ajax("comment.php", post, AjaxDone, function () {
         document.getElementById("error").innerHTML = "Couldn't upload comment";
     });
-
-
 }
 
 //Handles the ajax part, done and error are both functions that should be called if need be
@@ -61,10 +59,17 @@ function AjaxDone(response) {
 }
 //Handles the values returned from a valid update
 function UpdateHandle(ajax) {
-    var xml = ajax.responseXML;
+    var xml = ajax.responseText;
+    if (xml.length < 10)
+    {
+        alert("WHY");
+        return true;
+    }
+    alert(xml.length);
+    xml = ajax.responseXml;
 
-    var posts = xml.getElementsByTagName("comment");
-
+    var posts = xml.getElementsByTagName("base");
+    posts = posts[0];
     var inner = document.getElementById("uploads").innerHTML;
     for (let post of posts) {
         inner += post.innerHTML;
@@ -79,13 +84,8 @@ function UpdateHandle(ajax) {
 //Called when an update is requested
 function Update() {
     var post = "";
-    if (document.getElementById("date").value != "") {
-        post = "date=" + document.getElementById("date").value;
-    }
-    else
-    {
-        post = "0";
-    }
+    post = "date=" + document.getElementById("date").value;
+    
     //Calls UpdateHandle if it succeeds, alert if not
     Ajax("update.php", post, UpdateHandle, function () { alert("Couldn't update") });
 }

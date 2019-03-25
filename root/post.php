@@ -9,10 +9,17 @@ function HtmlEnd($comments)
 {
 	$toReturn = "";
 	$toReturn .= "<!--END OF POSTS AND COMMENTS--><div class=\"comment\"><h5>Comment:</h5><label class=\"error\" id=\"error\"></label><br /><textarea class=\"input\" id=\"comment\"></textarea>
-        <input class=\"button\" type=\"button\" value=\"Post\" onclick=\"Post(document.getElementById('comment').value)\" /></div><!--USED FOR THE UPDATE FUNCTION-->";
-
-	$toReturn .= "<input type=\"hidden\" id=\"date\" value=\"" . $comments[sizeof($comments) - 1]['date'] . " />";
-	$toReturn .= "<script type=\"text/javascript\" src=\"post.js\"></script></body></html>";
+        <input class=\"button\" type=\"button\" value=\"Post\" onclick=\"A(document.getElementById('comment').value);\" /></div><!--USED FOR THE UPDATE FUNCTION-->";
+	if (sizeof($comments) == 0)
+	{
+		$val = "0";
+	}
+	else 
+	{
+		$val = $comments[sizeof($comments) - 1]['date'];
+	}
+	$toReturn .= "<input type=\"hidden\" id=\"date\" value=\"" . $val . "\" />";
+	$toReturn .= "</body></html>";
 	return $toReturn;
 }
 
@@ -68,7 +75,17 @@ function HandlePost($op)
 	
 	$query = "SELECT bio FROM users WHERE name=\"" .  $op['name'] . "\"";
 
-	Select($query, $bio);
+	$error = Select($query, $bio, true);
+
+	if ($error)
+	{
+		Error($error);
+	}
+	if (empty($bio))
+	{
+		$bio = array();
+		$bio[0]['bio'] = "User deleted :(";
+	}
 
 	$toPrint = "<h3>" . $op['subject'] . "</h3><hr/>";
 	$toPrint .= "<div class=\"profile\"><img class=\"profilepic\" src=\"pic/" . $op['name'] . ".jpg\"/>";
@@ -77,7 +94,7 @@ function HandlePost($op)
 	$toPrint .= "<time>" . $op['date'] . "</time></div>";
 	$toPrint .= "<div class=\"text\"><label style=\"width:60%;float:left;\">";
 	$toPrint .= $op['body'] . "</label>";
-	$toPrint .= "<img src=\"post/" .  $_GET['id'] . $op['image'] ."\" style=\"float:right;height:90%\" />";
+	$toPrint .= "<img src=\"post/" .  $_GET['id'] . ".".  $op['image'] ."\" style=\"float:right;height:90%\" />";
 	$toPrint .= "</div><hr/>";
 
 	return $toPrint;
@@ -115,6 +132,7 @@ function HtmlStart()
     <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">
 </head>
 <body>
+<script type=\"text/javascript\" src=\"post.js\"></script>
     
     <!---ALL POSTS AND COMMENTS--->
     <div class=\"uploads\" id=\"uploads\">
@@ -158,7 +176,7 @@ function Select($query, &$result, $allowEmpty = false)
 		Error("Couldn't find the requested post, something must be wrong with the link." . $query);
 	}
 	
-	return $result;
+	return false;
 }
 
 include 'globalVal.php';

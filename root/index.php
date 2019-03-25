@@ -248,9 +248,9 @@ else
 }
 
 $toPrint .= Navigator($page);
-$toPrint .= Posts($page);
 if (isset($_GET['error']))
 {
+
 	$ar = array();
 	$ar['database'] = "Couldn't upload post, somethings wrong with the database";
 	$ar['image'] = "Couldn't upload post, somethings wrong with the uploaded image. Makes sure that it's a jpeg, png or gif file";
@@ -260,6 +260,9 @@ if (isset($_GET['error']))
 
 	$toPrint .= "<div style=\"background-color:red;margin-top:5px;margin-bottom:5px;width:20%;\"><label>". $ar[$_GET['error']] . "</label></div>";
 }
+$toPrint .= Posts($page);
+
+
 $toPrint .= Navigator($page);
 
 $toPrint .= EndHtml();

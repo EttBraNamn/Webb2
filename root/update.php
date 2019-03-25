@@ -52,7 +52,7 @@ function HandleComments($comments)
 {
 	$bios = GetBios($comments);
 	
-	
+	$toReturn = "<base>";
 	//Goes through all the made comments in their sorted order
 	foreach ($comments as $comment)
 	{
@@ -66,6 +66,7 @@ function HandleComments($comments)
 		$toReturn .= "</comment>";
 	}
 	
+	$toReturn .= "</base>";
 	return $toReturn;
 }
 
