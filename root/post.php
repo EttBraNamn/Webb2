@@ -8,8 +8,8 @@ function Error($s)
 function HtmlEnd($comments)
 {
 	$toReturn = "";
-	$toReturn .= "<!--END OF POSTS AND COMMENTS--><div class=\"comment\"><h5>Comment:</h5><label class=\"error\" id=\"error\"></label><br /><textarea class=\"input\" id=\"comment\"></textarea>
-        <input class=\"button\" type=\"button\" value=\"Post\" onclick=\"A(document.getElementById('comment').value);\" /></div><!--USED FOR THE UPDATE FUNCTION-->";
+	$toReturn .= "<!--END OF POSTS AND COMMENTS--><div class=\"comment\"><h3>Comment:</h3><label class=\"error\" id=\"error\"></label><br /><textarea class=\"input\" name=\"comment\"id=\"comment\"></textarea>
+        <input class=\"button\" type=\"button\" value=\"Post\" onclick=\"A(document.getElementById('comment').value);\" /><input style=\"margin-left:10px;\" class=\"button\" type=\"button\" value=\"Update!\" onclick=\"Update();\"/></div><!--USED FOR THE UPDATE FUNCTION-->";
 	if (sizeof($comments) == 0)
 	{
 		$val = "0";
@@ -94,8 +94,8 @@ function HandlePost($op)
 	$toPrint .= "<time>" . $op['date'] . "</time></div>";
 	$toPrint .= "<div class=\"text\"><label style=\"width:60%;float:left;\">";
 	$toPrint .= $op['body'] . "</label>";
-	$toPrint .= "<img src=\"post/" .  $_GET['id'] . ".".  $op['image'] ."\" style=\"float:right;height:90%\" />";
-	$toPrint .= "</div><hr/>";
+	$toPrint .= "<img src=\"post/" .  $_GET['id'] . ".".  $op['image'] ."\" onclick=\"window.location.href = 'post/" .  $_GET['id'] . ".".  $op['image'] ."'\"style=\"float:right;height:90%\" />";
+	$toPrint .= "</div><hr/></div>";
 
 	return $toPrint;
 }
@@ -103,7 +103,6 @@ function HandlePost($op)
 function HandleComments($comments)
 {
 	$bios = GetBios($comments);
-	
 	
 	$toReturn = "";
 	//Goes through all the made comments in their sorted order
@@ -116,7 +115,7 @@ function HandleComments($comments)
 		$toReturn .= " </div><div class=\"text ctext\"><label>" . $comment['body'] . "</label>";
 		$toReturn .= "</div><hr /></div>";
 	}
-
+	$toReturn .= "</div>";
 	return $toReturn;
 }
 

@@ -71,7 +71,7 @@ if (!$stmt->execute())
 	Error("database");
 }
 
-$list = $stmt->fetchAll()[0]['list'];
+$list = $stmt->fetchAll();
 
 $listArray = array();
 $count = -1;
@@ -88,7 +88,8 @@ foreach ($list as $char)
 	}
 }
 
-if (!in_array($id, $listArray)
+$list = "";
+if (!in_array($id, $listArray))
 {
 	$list .= "," . $id;
 }
@@ -96,7 +97,6 @@ else
 {
 	foreach ($listArray as $elem)
 	{
-		$list = "";
 		if ($elem != $id)
 		{
 			$list .= "," . $elem;
@@ -106,7 +106,7 @@ else
 }
 
 //Updates the list to feature the new post aswell
-$query "UPDATE users SET list=:list WHERE name=:name";
+$query = "UPDATE users SET list=:list WHERE name=:name";
 if(!$stmt = $connect->prepare($query))
 {
 	Error("database");
@@ -118,6 +118,6 @@ if (!$stmt->execute())
 	Error("database");
 }
 
-return "Comment uploaded!";
+echo("Comment uploaded!");
 
 ?>

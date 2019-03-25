@@ -1,7 +1,8 @@
 <?php
+
 function Error($s)
 {
-	echo("");
+	echo($s);
 	exit();
 }
 //Get all the needed bios
@@ -51,22 +52,17 @@ function GetBios($comments)
 function HandleComments($comments)
 {
 	$bios = GetBios($comments);
-	
-	$toReturn = "<base>";
+	$toReturn = "";
 	//Goes through all the made comments in their sorted order
 	foreach ($comments as $comment)
 	{
-		$toReturn = "<comment>";
 		$toReturn .= "<div class=\"post\"><div class=\"profile cprofile\"><img class=\"profilepic\" src=\"pic/" . $comment['name'] . ".jpg\"/>";
 		$toReturn .= "<br /><label>" . $comment['name'] . "</label>";
 		$toReturn .= "<br /><label>" . $bios[$comment['name']] . "</label>";
 		$toReturn .= "<br /><time>" . $comment['date'] . "</time>";
 		$toReturn .= " </div><div class=\"text ctext\"><label>" . $comment['body'] . "</label>";
 		$toReturn .= "</div><hr /></div>";
-		$toReturn .= "</comment>";
 	}
-	
-	$toReturn .= "</base>";
 	return $toReturn;
 }
 
@@ -131,5 +127,7 @@ $comments = GetComments($_POST['date'], $_GET['id']);
 
 usort($comments, "sComments");
 
-return HandleComments($comments);
+echo(HandleComments($comments));
+
+
 ?>

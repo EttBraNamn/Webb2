@@ -10,8 +10,7 @@ function A(s) {
     }
 
     //Values to send via post
-    var post = "comment=" + document.getElementById("comment").innerHTML;
-
+    var post = "comment=" + document.getElementById("comment").value;
     Ajax("comment.php", post, AjaxDone, function () {
         document.getElementById("error").innerHTML = "Couldn't upload comment";
     });
@@ -41,7 +40,6 @@ function Ajax(url, post, done, error) {
         }
     }
     url += "?" + location.substring(i);
-    alert(url);
     ajax.open("POST", url, true);
     ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     ajax.send(post);
@@ -55,31 +53,39 @@ function AjaxDone(response) {
         return;
     }
     var text = response.responseText;
-    Update();
+    if (text != "Comment uploaded!")
+    {
+        document.getElementById("error").innerHTML = text;
+    }
+    else
+    {
+        Update();
+    }
 }
 //Handles the values returned from a valid update
 function UpdateHandle(ajax) {
     var xml = ajax.responseText;
-    if (xml.length < 10)
+    if (xml[0] != '<')
     {
-        alert("WHY");
-        return true;
+        document.getElementById("error").innerHTML = "There was nothing to update";
+        return;
     }
-    alert(xml.length);
-    xml = ajax.responseXml;
-
-    var posts = xml.getElementsByTagName("base");
-    posts = posts[0];
+  
     var inner = document.getElementById("uploads").innerHTML;
-    for (let post of posts) {
-        inner += post.innerHTML;
-    }
+    inner += xml;
     document.getElementById("uploads").innerHTML = inner;
 
     //Shifts the old date to the new one
-    var last = posts[posts.length - 1];
-    document.getElementById("date").innerHTML = last.getElementByTagName("time").innerHTML;
-
+     var arr = document.getElementsByTagName("time");
+     var highest = "0";
+     for (ob in arr)
+     {
+        if (highest < arr[ob].innerHTML)
+        {
+            highest = arr[ob].innerHTML;
+        }
+     }
+     document.getElementById("date").value = highest;
 }
 //Called when an update is requested
 function Update() {
