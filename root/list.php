@@ -1,13 +1,15 @@
 <?php
 
-/*
-<div class="postrow" >
-                <div  class="block">
-                    <img src="test.jpg" class="listpic"/>
-                    <br/>
-                    <label ><a href="post.php?id=1">This is the least interesting thing to have ever happened in my life</a></label>
-                </div>
-*/
+function Error($s)
+{
+    echo($s);
+    exit();
+}
+function HtmlEnd()
+{
+    return "</body></html>";
+}
+
 function PostHandle($posts, $list)
 {
     $toReturn = "<div class=\"postblock\" ><br><div class=\"postrow\" >";
@@ -18,13 +20,13 @@ function PostHandle($posts, $list)
         {
             $toReturn .= "</div><br><div class=\"postrow\" >";
         }
-        $toReturn .= "<div class=\"block\"><img src=\"post/" . $list[$i] . $posts[$list[$i]]['image'] . "\" class=\"listpic\"/>
+        $toReturn .= "<div class=\"block\"><img src=\"post/" . $list[$i] .".". $posts[$list[$i]]['image'] . "\" class=\"listpic\"/>
         <br/><label><a href=\"post.php?id=" . $list[$i] . "\">" . $posts[$list[$i]]['subject'] . "</a></label></div>";
     } 
     $toReturn .= "</div></div>";
     return $toReturn;
 }
-function HtmlStart();
+function HtmlStart()
 {
     return "<html>
     <head>
@@ -34,9 +36,9 @@ function HtmlStart();
     </head>
     <body>
         <div class=\"header\">
-            <input class=\"hbutton\" type=\"button\" style=\"width:33%\" value=\"Main Page\" href=\"index.php\" />
-            <input class=\"hbutton\" type=\"button\" style=\"width:33%\" value=\"Profile\" href=\"profile.php\" />
-            <input class=\"hbutton\" type=\"button\" style=\"width:33%\" value=\"Log Out\" href=\"logout.php\" />
+            <input class=\"hbutton\" type=\"button\" style=\"width:33%\" value=\"Main Page\" onclick=\"window.location.href = 'index.php'\" />
+            <input class=\"hbutton\" type=\"button\" style=\"width:33%\" value=\"Profile\" onclick=\"window.location.href = 'profile.php'\" />
+            <input class=\"hbutton\" type=\"button\" style=\"width:33%\" value=\"Log Out\" onclick=\"window.location.href = 'logout.php'\" />
         </div>
         <br style=\"margin-top:25px;\">";
 }
@@ -44,9 +46,10 @@ function HtmlStart();
 function GetPosts($list, $sList)
 {
     $sList[0] = ' ';
-    $slist = "(" . $sList . ")";
+    $s = "(";
+    $s .= $sList . ")";
 
-    $query = "SELECT * FROM post WHERE id IN" . $sList;
+    $query = "SELECT * FROM post WHERE id IN" . $s;
 
 
     $connect = new PDO("mysql:host=" . SERVERNAME . ";dbname=" . DBNAME, USERNAME, PASSWORD);
@@ -93,9 +96,10 @@ function GetList($name, &$s)
     $s = $result;
     $listArr = array();
     $count = -1;
+
     for ($i = 0; $i < strlen($result); ++$i)
     {
-        if ($result[$count] == ',')
+        if ($result[$i] == ',')
         {
             ++$count;
             $listArr[$count] = "";
@@ -131,9 +135,10 @@ $sList = "";
 
 $list = GetList($name, $sList);
 
-$posts = GetPosts($list);
+$posts = GetPosts($list, $sList);
 
 $toPrint = HtmlStart();
 $toPrint .= PostHandle($posts, $list);
 $toPrint .= HtmlEnd();
+echo($toPrint);
 ?>

@@ -66,12 +66,13 @@
     height:25%;
 }
 .block{
-    width:18%;
-    margin-left:5%;
-    float:left;
-    text-align:center;
+    width: 18%;
+    margin-left: 5%;
+    float: left;
+    text-align: center;
     height: 100%;
 }
 .listpic{
     max-width:80%;
+    max-height:90%
 }
