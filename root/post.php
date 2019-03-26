@@ -94,7 +94,7 @@ function HandlePost($op)
 	$toPrint .= "<time>" . $op['date'] . "</time></div>";
 	$toPrint .= "<div class=\"text\"><label style=\"width:60%;float:left;\">";
 	$toPrint .= $op['body'] . "</label>";
-	$toPrint .= "<img src=\"post/" .  $_GET['id'] . ".".  $op['image'] ."\" onclick=\"window.location.href = 'post/" .  $_GET['id'] . ".".  $op['image'] ."'\"style=\"float:right;height:90%\" />";
+	$toPrint .= "<img src=\"post/" .  $_GET['id'] . ".".  $op['image'] ."\" onclick=\"window.location.href = 'post/" .  $_GET['id'] . ".".  $op['image'] ."'\"style=\"float:right;max-height:100%\" />";
 	$toPrint .= "</div><hr/></div>";
 
 	return $toPrint;

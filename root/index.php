@@ -94,13 +94,14 @@ function Posts($page)
 	$toReturn .= "<div>";
 	foreach ($posts as $p)
 	{
-		$toReturn .= "<div class=\"post\"><p class=\"subject\"><a href=\"post.php?id=" . $p['id'] . "\">";
+		$toReturn .= "<div class=\"post\" onclick=\"window.location.href = 'post.php?id=" . $p['id'] . "'\"><p class=\"subject\"><a href=\"post.php?id=" . $p['id'] . "\">";
 		$toReturn .= $p['subject'] . "</a></p><div class=\"profile\">";
 		$toReturn .= "<img class=\"profilepic\" src=\"pic/" . $p['name'] . ".jpg\"/><br/>";
 		$toReturn .= "<label class=\"name\">" . $p['name'] . "</label></div>";
 		$toReturn .= "<div class=\"text\"><label style=\"width:60%;float:left;\">" . $p['body'] . "</label>";
-		$toReturn .= "<img class=\"pic\" src=\"post/" . $p['id'] . "." . $p['image'] . "\"/>";
+		$toReturn .= "<img class=\"pic\" src=\"post/" . $p['id'] . "." . $p['image'] . "\" />";
 		$toReturn .= "</div></div>";
+		$toReturn .= "<hr/>";
 	}
 
 	$toReturn .= "</div>";
