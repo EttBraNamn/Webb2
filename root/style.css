@@ -13,7 +13,9 @@
     float: right;
     height: 30%;
 }
-
+body{
+    font-family: "Times New Roman", Times, serif;
+}
 .profilepic {
     width: 25%;
 }

@@ -1,0 +1,46 @@
+<html>
+<head>
+    <title>Profile</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="UTF-8" />
+</head>
+<body>
+    <script>
+    function EditEnable()
+    {
+        document.getElementById("image").innerHTML = "<p>New Image:</p><input type='file' name='file'/>";
+
+        var s = document.getElementById("original").innerHTML;
+        document.getElementById("text").innerHTML = "<textarea name='text' style='width:20%;height:10%;'>" + s + "</textarea>"
+        document.getElementById("original").style.visibility = "hidden";
+        document.getElementById("submitbutton").innerHTML = "<input type='submit' name='submit'/>"
+    }
+    
+    function 
+    </script>
+    <div class="header">
+        <input class="hbutton" type="button" style="width:33%" value="Main Page" href="index.php" />
+        <input class="hbutton" type="button" style="width:33%" value="Post History" href="list.php" />
+        <input class="hbutton" type="button" style="width:33%" value="Log Out" href="logout.php" />
+    </div>
+    <br>
+    <form action="editProfile.php" enctype="multipart/form-data" name="form" method="post">
+        <div class="information">
+            <p>Name:</p>
+            <p>AVeryGoodNameFOrUser</p>
+            <hr>
+            <p>Profile Picture:</p>
+            <img style="max-width:10%" src="test.jpg"/>
+            <div id="image"></div>
+            <hr>
+            <p>Bio:</p>
+            <div id="text"></div>
+            <p id="original">A LONG OIJO oijh öoijj poihj poij poij oij poij öoij poij öoij öoij poij ij oåpij opij oij oij</p>
+            <hr>
+        </div>
+        <div id="submitbutton"></div>
+    </form>
+    <input type="button" value="Edit" onclick="EditEnable();"/>
+    <input type="button" value="Delete Profile" style="background-color: red;" onclick="DeleteAsk();"/>
+</body>
+</html>
