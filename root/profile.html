@@ -5,23 +5,7 @@
     <meta charset="UTF-8" />
 </head>
 <body>
-    <script>
-    //Enables the input fields needed for the editing of values
-    function EditEnable()
-    {
-        document.getElementById("image").innerHTML = "<p>New Image:</p><input type='file' name='file'/>";
-
-        var s = document.getElementById("original").innerHTML;
-        document.getElementById("text").innerHTML = "<textarea name='text' style='width:20%;height:10%;'>" + s + "</textarea>"
-        document.getElementById("original").style.visibility = "hidden";
-        document.getElementById("submitbutton").innerHTML = "<input type='submit' name='submit'/>"
-    }
-    //Asking for confirmation before a users account is deleted
-    function DeleteAsk()
-    {
-        
-    }
-    </script>
+    <script type="text/javascript" src="profile.js"></script>
     <div class="header">
         <input class="hbutton" type="button" style="width:33%" value="Main Page" href="index.php" />
         <input class="hbutton" type="button" style="width:33%" value="Post History" href="list.php" />
@@ -47,11 +31,6 @@
     <input type="button" value="Edit" onclick="EditEnable();"/>
     <input type="button" value="Delete Profile" style="background-color: red;" onclick="DeleteAsk();"/>
     <div id="delete">
-        <form action="deleteUser.php" method="post">
-            <p>Enter your username to confirm (this is going to delete all posts and comments aswell)</p>
-            <input type="text" name="name"/>
-            <input type="submit" name="submit" value="Delete"/>
-        </form>
     </div>
 </body>
 </html>

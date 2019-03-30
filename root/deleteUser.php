@@ -44,7 +44,7 @@ if ($_POST['name'] != $_SESSION['name'] && !in_array($_SESSION['name'], ADMIN))
 
 $name = $_POST['name'];
 
-$query = "DELETE FROM comments WHERE name=:name";
+$query = "DELETE FROM users WHERE name=:name";
 
 $connect = new PDO("mysql:host=" . SERVERNAME . ";dbname=" . DBNAME, USERNAME, PASSWORD);
 //If it can't be prepared
@@ -58,6 +58,21 @@ if(!$stmt->execute())
 {
     Error("Couldn't execure query" . $query);
 }
+
+
+$query = "DELETE FROM comments WHERE name=:name";
+
+if (!$stmt = $connect->prepare($query))
+{
+	Error("Couldn't prepare query" . $query);
+}
+$stmt->bindParam(":name", $name);
+//If it can't be executed
+if(!$stmt->execute())
+{
+    Error("Couldn't execure query" . $query);
+}
+
 
 $query = "SELECT id FROM post WHERE name=:name";
 
