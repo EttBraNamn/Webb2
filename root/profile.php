@@ -20,9 +20,9 @@ function HtmlStart()
     <body>
         <script type=\"text/javascript\" src=\"profile.js\"></script>
         <div class=\"header\">
-            <input class=\"hbutton\" type=\"button\" style=\"width:33%\" value=\"Main Page\" href=\"index.php\" />
-            <input class=\"hbutton\" type=\"button\" style=\"width:33%\" value=\"Post History\" href=\"list.php\" />
-            <input class=\"hbutton\" type=\"button\" style=\"width:33%\" value=\"Log Out\" href=\"logout.php\" />
+            <input class=\"hbutton\" type=\"button\" style=\"width:33%\" value=\"Main Page\" onclick=\"window.location.href = 'index.php'\" />
+            <input class=\"hbutton\" type=\"button\" style=\"width:33%\" value=\"Post History\" onclick=\"window.location.href = 'list.php'\" />
+            <input class=\"hbutton\" type=\"button\" style=\"width:33%\" value=\"Log Out\" onclick=\"window.location.href = 'logout.php'\" />
         </div>
         <br>
         <form action=\"editProfile.php\" enctype=\"multipart/form-data\" name=\"form\" method=\"post\">

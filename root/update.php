@@ -49,8 +49,9 @@ function GetBios($comments)
 	return $toReturn;
 }
 //Converts all the comments to a managable string one can return
-function HandleComments($comments)
+function HandleComments($comments, $loggedIn = false)
 {
+	
 	$bios = GetBios($comments);
 	$toReturn = "";
 	//Goes through all the made comments in their sorted order
@@ -60,6 +61,14 @@ function HandleComments($comments)
 		$toReturn .= "<br /><label>" . $comment['name'] . "</label>";
 		$toReturn .= "<br /><label>" . $bios[$comment['name']] . "</label>";
 		$toReturn .= "<br /><time>" . $comment['date'] . "</time>";
+		if ($loggedIn && ($_SESSION['name'] == $comment['name'] || in_array($_SESSION['name'], ADMIN)))
+		{
+			$toReturn .= "<form action=\"deleteComment.php\" method=\"post\">
+			<input type=\"hidden\" name=\"id\" value=\"". $_GET['id'] . "\"/>
+			<input type=\"hidden\" name=\"date\" value=\"" . $comment['date']. "\"/>
+			<input type=\"submit\" name=\"submit\" value=\"Delete\"/>
+			</form>";
+		}
 		$toReturn .= " </div><div class=\"text ctext\"><label>" . $comment['body'] . "</label>";
 		$toReturn .= "</div><hr /></div>";
 	}
@@ -112,6 +121,9 @@ function sComments($lhs, $rhs)
 
 
 include 'globalVal.php';
+include 'security.php';
+
+session_start();
 
 //Makes sure that all the required variabels exist
 if(!isset($_GET['id']))
@@ -123,7 +135,15 @@ if(!isset($_POST['date']))
 	Error("Missing date");
 }
 
-$comments = GetComments($_POST['date'], $_GET['id']);
+
+if (!isset($_SESSION['name']))
+{
+	$comments = GetComments($_POST['date'], $_GET['id']);
+}
+else
+{
+	$comments = GetComments($_POST['date'], $_GET['id'], VerifyUser($_SESSION['name'], $_SESSION['password'] == "correct"));
+}
 
 usort($comments, "sComments");
 

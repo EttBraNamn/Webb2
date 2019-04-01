@@ -14,16 +14,19 @@ session_start();
 //Checks if all the required values are defined correctly
 if (!isset($_POST['id']))
 {
+    Error("KYS");
     header("location: index.php");
     exit();
 }
 if (!isset($_SESSION['name']))
 {
+    Error("KYS2");
     header("location: index.php");
     exit();
 }
 if (VerifyUser($_SESSION['name'], $_SESSION['password']) != "correct")
 {
+    Error("KYS3");
     header("location: index.php");
     exit();
 }
@@ -36,10 +39,12 @@ $name = $_SESSION['name'];
 //Delets the post with the right id and name. That way nobody can delete something that the user never posted
 if (in_array($name, ADMIN))
 {
+    
     $query = "DELETE FROM post WHERE id=:id";
 }
 else
 {
+    Error("KYS5");
     $query = "DELETE FROM post WHERE id=:id AND name=\"" . $name . "\"";
 }
 

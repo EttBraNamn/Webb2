@@ -1,5 +1,10 @@
 <?php
 
+function RemoveDead()
+{
+    fo
+}
+
 function Error($s)
 {
     echo($s);
@@ -136,6 +141,8 @@ $sList = "";
 $list = GetList($name, $sList);
 
 $posts = GetPosts($list, $sList);
+
+$list = RemoveDead($posts, $list);
 
 $toPrint = HtmlStart();
 $toPrint .= PostHandle($posts, $list);

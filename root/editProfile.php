@@ -19,7 +19,6 @@ if (!isset($_SESSION['name']))
 }
 if (VerifyUser($_SESSION['name'], $_SESSION['password']) != "correct")
 {
-    Error("Verify");
     header("location: index.php");
     exit();
 }
@@ -52,9 +51,9 @@ if (!($stmt->execute()))
 	Error("Couldn't execute query");
 }
 
-if (!isset($_FILES['file']))
+if (empty($_FILES['file']['tmp_name']))
 {
-    Error("Why?");
+    Error("KYs");
     header("location: profile.php");
     exit();
 }

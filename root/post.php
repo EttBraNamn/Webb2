@@ -68,7 +68,7 @@ function GetBios($comments)
 }
 
 //Returns OP:s post in html format
-function HandlePost($op)
+function HandlePost($op, $loggedIn = false)
 {
 	$op = $op[0];
 	//Get's the right bio
@@ -91,8 +91,13 @@ function HandlePost($op)
 	$toPrint .= "<div class=\"profile\"><img class=\"profilepic\" src=\"pic/" . $op['name'] . ".jpg\"/>";
 	$toPrint .= "<br/><label>" . $op['name']. "</label><br/>";
 	$toPrint .= "<label>" . $bio[0]['bio'] . "</label><br/>";
-	$toPrint .= "<time>" . $op['date'] . "</time></div>";
-	$toPrint .= "<div class=\"text\"><label style=\"width:60%;float:left;\">";
+	$toPrint .= "<time>" . $op['date'] . "</time>";
+	if ($loggedIn && ($_SESSION['name'] == $op['name'] || in_array($_SESSION['name'], ADMIN)))
+	{
+		$toPrint .= "<form action=\"deletePost.php\" method=\"post\"><input type=\"hidden\" name=\"id\" value=\"";
+		$toPrint .= $_GET['id'] . "\"/><input type=\"submit\" name=\"submit\" value=\"Delete\"/></form>";
+	}
+	$toPrint .= "</div><div class=\"text\"><label style=\"width:60%;float:left;\">";
 	$toPrint .= $op['body'] . "</label>";
 	$toPrint .= "<img src=\"post/" .  $_GET['id'] . ".".  $op['image'] ."\" onclick=\"window.location.href = 'post/" .  $_GET['id'] . ".".  $op['image'] ."'\"style=\"float:right;max-height:100%\" />";
 	$toPrint .= "</div><hr/></div>";
@@ -100,7 +105,7 @@ function HandlePost($op)
 	return $toPrint;
 }
 
-function HandleComments($comments)
+function HandleComments($comments, $loggedIn = false)
 {
 	$bios = GetBios($comments);
 	
@@ -112,6 +117,14 @@ function HandleComments($comments)
 		$toReturn .= "<br /><label>" . $comment['name'] . "</label>";
 		$toReturn .= "<br /><label>" . $bios[$comment['name']] . "</label>";
 		$toReturn .= "<br /><time>" . $comment['date'] . "</time>";
+		if ($loggedIn && ($_SESSION['name'] == $comment['name'] || in_array($_SESSION['name'], ADMIN)))
+		{
+			$toReturn .= "<form action=\"deleteComment.php\" method=\"post\">
+			<input type=\"hidden\" name=\"id\" value=\"". $_GET['id'] . "\"/>
+			<input type=\"hidden\" name=\"date\" value=\"" . $comment['date']. "\"/>
+			<input type=\"submit\" name=\"submit\" value=\"Delete\"/>
+			</form>";
+		}
 		$toReturn .= " </div><div class=\"text ctext\"><label>" . $comment['body'] . "</label>";
 		$toReturn .= "</div><hr /></div>";
 	}
@@ -208,8 +221,19 @@ usort($comments, "sComments");
 //The string that's supposed to be echoed later
 $toPrint = HtmlStart();
 //Takes care of post and comment part
-$toPrint .= HandlePost($post);
-$toPrint .= HandleComments($comments);
+
+
+if (!isset($_SESSION['name']))
+{
+	$toPrint .= HandlePost($post);
+	$toPrint .= HandleComments($comments);
+}
+else
+{
+	$val = (VerifyUser($_SESSION['name'], $_SESSION['password']) == "correct");
+	$toPrint .= HandlePost($post, $val);
+	$toPrint .= HandleComments($comments, $val);
+}
 $toPrint .= HtmlEnd($comments);
 echo($toPrint);
 ?>
