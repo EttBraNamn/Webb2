@@ -163,7 +163,7 @@ function HtmlStart()
         <input type=\"button\" onclick=\"document.getElementById('not').innerHTML = '';\"style=\"width:10%\" value=\"No\"/>
     </div>";
 	}
-	$toReturn . = "<!---ALL POSTS AND COMMENTS--->
+	$toReturn .= "<!---ALL POSTS AND COMMENTS--->
     <div class=\"uploads\" id=\"uploads\">
 		<div class=\"post\" id=\"op\">";
 		
