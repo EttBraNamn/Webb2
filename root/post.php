@@ -135,7 +135,7 @@ function HandleComments($comments, $loggedIn = false)
 //Everything html related before the post
 function HtmlStart()
 {
-	return "<html>
+	$toReturn =  "<html>
 <head>
     <title>
         Posts
@@ -144,11 +144,30 @@ function HtmlStart()
     <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">
 </head>
 <body>
-<script type=\"text/javascript\" src=\"post.js\"></script>
-    
-    <!---ALL POSTS AND COMMENTS--->
+<script type=\"text/javascript\" src=\"post.js\"></script>";
+	if (isset($_SESSION['name']) && VerifyUser($_SESSION['name'], $_SESSION['password']))
+	{
+		$toReturn .= "<div class=\"header\">
+		<input class=\"hbutton\" type=\"button\" style=\"width:24.8%\" value=\"Main Page\" onclick=\"window.location.href = 'index.php'\" />
+		<input class=\"hbutton\" type=\"button\" style=\"width:24.8%\" value=\"Profile\" onclick=\"window.location.href = 'profile.php'\" />
+		<input class=\"hbutton\" type=\"button\" style=\"width:24.8%\" value=\"Post History\" onclick=\"window.location.href = 'list.php'\" />
+		<input class=\"hbutton\" type=\"button\" style=\"width:24.8%\" value=\"Log Out\" onclick=\"window.location.href = 'logout.php'\" />
+	</div>";
+	}
+	else
+	{
+		$toReturn .= "<div class=\"header\" id=\"not\">
+        <h2>You're not logged in. Do you want to do it now?</h2>
+        <input type=\"button\" onclick=\"window.location.href = 'login.php';\" style=\"width:10%\"value=\"Yes\"/>
+        <input type=\"button\" onclick=\"window.location.href = 'signup.php';\" style=\"width:10%\" value=\"Sign up\" />
+        <input type=\"button\" onclick=\"document.getElementById('not').innerHTML = '';\"style=\"width:10%\" value=\"No\"/>
+    </div>";
+	}
+	$toReturn . = "<!---ALL POSTS AND COMMENTS--->
     <div class=\"uploads\" id=\"uploads\">
-        <div class=\"post\" id=\"op\">";
+		<div class=\"post\" id=\"op\">";
+		
+	return $toReturn;
 }
 
 //Function used to sort comments

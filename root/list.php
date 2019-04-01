@@ -1,8 +1,22 @@
 <?php
 
-function RemoveDead()
+function RemoveDead($posts, $list)
 {
-    fo
+    $toReturn = array();
+    $check = array();
+    foreach($posts as $p)
+    {
+        array_push($check, $p['id']);
+    }
+    foreach($list as $l)
+    {
+        if (in_array($l, $check))
+        {
+            array_push($toReturn, $l);
+        }
+
+    }
+    return $toReturn;
 }
 
 function Error($s)

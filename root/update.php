@@ -142,12 +142,19 @@ if (!isset($_SESSION['name']))
 }
 else
 {
-	$comments = GetComments($_POST['date'], $_GET['id'], VerifyUser($_SESSION['name'], $_SESSION['password'] == "correct"));
+	$comments = GetComments($_POST['date'], $_GET['id']);
 }
 
 usort($comments, "sComments");
 
-echo(HandleComments($comments));
+if (isset($_SESSION['name']))
+{
+	echo(HandleComments($comments, VerifyUser($_SESSION['name'], $_SESSION['password'] == "correct")));
+}
+else
+{
+	echo(HandleComments($comments));
+}
 
 
 ?>
