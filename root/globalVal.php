@@ -7,7 +7,7 @@ if(!defined("PASSWORD"))
 	define("USERNAME", "root"); //Mysql username
 	define("SERVERNAME", "localhost"); 
 	define("DBNAME", "db"); //Name of the database
-	define("ADMIN", array("admin"));
+	define("ADMIN", array("admin", "testtest"));
 	define("ADMINPASS", "admin");
 }
 ?>

@@ -96,6 +96,14 @@ function HandlePost($op, $loggedIn = false)
 	{
 		$toPrint .= "<form action=\"deletePost.php\" method=\"post\"><input type=\"hidden\" name=\"id\" value=\"";
 		$toPrint .= $_GET['id'] . "\"/><input type=\"submit\" name=\"submit\" value=\"Delete\"/></form>";
+		
+		if (in_array($_SESSION['name'], ADMIN))
+		{
+			$toPrint .= "<form action=\"deleteUser.php\" method=\"post\">
+			<input type=\"hidden\" name=\"name\" value=\"" . $op['name'] . "\"/>
+			<input type=\"submit\" name=\"submit\" value=\"DELETE USER!\"/>
+			</form>";
+		}
 	}
 	$toPrint .= "</div><div class=\"text\"><label style=\"width:60%;float:left;\">";
 	$toPrint .= $op['body'] . "</label>";
@@ -123,6 +131,13 @@ function HandleComments($comments, $loggedIn = false)
 			<input type=\"hidden\" name=\"id\" value=\"". $_GET['id'] . "\"/>
 			<input type=\"hidden\" name=\"date\" value=\"" . $comment['date']. "\"/>
 			<input type=\"submit\" name=\"submit\" value=\"Delete\"/>
+			</form>";
+		}
+		if (in_array($_SESSION['name'], ADMIN))
+		{
+			$toReturn .= "<form action=\"deleteUser.php\" method=\"post\">
+			<input type=\"hidden\" name=\"name\" value=\"" . $comment['name'] . "\"/>
+			<input type=\"submit\" name=\"submit\" value=\"DELETE USER!\"/>
 			</form>";
 		}
 		$toReturn .= " </div><div class=\"text ctext\"><label>" . $comment['body'] . "</label>";
