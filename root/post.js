@@ -1,5 +1,9 @@
 var bios = new Array();
 
+function Not()
+{
+    document.getElementById("not").innerHTML = "<input class=\"hbutton\" type=\"button\" style=\"width:40%\" value=\"Main Page\" onclick=\"window.location.href = 'index.php'\" />";
+}
 
 function A(s) {
     //Checks if the comment is too short

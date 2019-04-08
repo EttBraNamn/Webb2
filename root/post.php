@@ -132,16 +132,18 @@ function HandleComments($comments, $loggedIn = false)
 			<input type=\"hidden\" name=\"date\" value=\"" . $comment['date']. "\"/>
 			<input type=\"submit\" name=\"submit\" value=\"Delete\"/>
 			</form>";
+		
+			if (in_array($_SESSION['name'], ADMIN))
+			{
+				$toReturn .= "<form action=\"deleteUser.php\" method=\"post\">
+				<input type=\"hidden\" name=\"name\" value=\"" . $comment['name'] . "\"/>
+				<input type=\"submit\" name=\"submit\" value=\"DELETE USER!\"/>
+				</form>";
+			}
 		}
-		if (in_array($_SESSION['name'], ADMIN))
-		{
-			$toReturn .= "<form action=\"deleteUser.php\" method=\"post\">
-			<input type=\"hidden\" name=\"name\" value=\"" . $comment['name'] . "\"/>
-			<input type=\"submit\" name=\"submit\" value=\"DELETE USER!\"/>
-			</form>";
-		}
+		
 		$toReturn .= " </div><div class=\"text ctext\"><label>" . $comment['body'] . "</label>";
-		$toReturn .= "</div><hr /></div>";
+		$toReturn .= "</div></div><hr />";
 	}
 	$toReturn .= "</div>";
 	return $toReturn;
@@ -175,7 +177,7 @@ function HtmlStart()
         <h2>You're not logged in. Do you want to do it now?</h2>
         <input type=\"button\" onclick=\"window.location.href = 'login.php';\" style=\"width:10%\"value=\"Yes\"/>
         <input type=\"button\" onclick=\"window.location.href = 'signup.php';\" style=\"width:10%\" value=\"Sign up\" />
-        <input type=\"button\" onclick=\"document.getElementById('not').innerHTML = '';\"style=\"width:10%\" value=\"No\"/>
+        <input type=\"button\" onclick=\"Not()\" style=\"width:10%\" value=\"No\"/>
     </div>";
 	}
 	$toReturn .= "<!---ALL POSTS AND COMMENTS--->

@@ -1,17 +1,17 @@
 .post {
-    height: auto;
+    height: 40%;
 }
 
 .profile {
     width: 30%;
     float: left;
-    height: 30%;
+    height: 100%;
 }
 
 .text {
     width: 70%;
     float: right;
-    height: 30%;
+    height: 100%;
 }
 body{
     font-family: "Times New Roman", Times, serif;
@@ -22,11 +22,11 @@ body{
 }
 
 .ctext {
-    height: 25%;
+    height: 100%;
 }
 
 .cprofile {
-    height: 25%;
+    height: 100%;
 }
 
 .error {
