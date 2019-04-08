@@ -139,6 +139,6 @@ session_start();
 $_SESSION["name"] = $name;
 $_SESSION["password"] = $password;
 
-header("location: login.php");
+header("location: index.php");
 exit();
 ?>

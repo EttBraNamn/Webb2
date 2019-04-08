@@ -12,7 +12,7 @@ function Write($a = "none")
 	$arr['prepare1'] = "There's something wrong with the query";
 	$arr['existingUser'] = "The username is already in use";
 	$arr['tooLongName'] = "The username is too long";
-	$arr['invalidChars'] = "The username is using unvalid characters";
+	$arr['invalidChars'] = "The username is using invalid characters";
 	$arr['none'] = "";
 	$arr[''] = '';
 	
