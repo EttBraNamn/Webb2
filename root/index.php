@@ -1,4 +1,4 @@
-<?php
+	<?php
 function EndHtml()
 {
 	return "</body></html>";

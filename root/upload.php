@@ -133,13 +133,13 @@ $list .= "," . $id;
 $query = "UPDATE users SET list=\"" . $list .  "\" WHERE name=:name";
 if(!$stmt = $connect->prepare($query))
 {
-	Error($query);
+	Error("database");
 }
 
 $stmt->bindParam(":name", $name);
 if (!$stmt->execute())
 {
-	Error($query);
+	Error("database");
 }
 
 //Open the specific post
