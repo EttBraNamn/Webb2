@@ -25,6 +25,12 @@ if (!($stmt->execute()))
 }
 
 include 'globalVal.php';
+include 'security.php';
+
+if (!AllowDBEdit())
+{
+    Error("Not allowed");
+}
 
 $query = "CREATE TABLE users (
     name varchar(30) COLLATE utf8_swedish_ci NOT NULL,
@@ -55,7 +61,5 @@ $query = "CREATE TABLE users (
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci";
   
   AddTable($query);
-  
-
 
 ?>

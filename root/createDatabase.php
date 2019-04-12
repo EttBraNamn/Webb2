@@ -7,6 +7,12 @@ function Error($s)
 }
 
 include 'globalVal.php';
+include 'security.php';
+
+if (!AllowDBEdit())
+{
+    Error("Not allowed");
+}
 
 $query = "CREATE DATABASE " . DBNAME . " COLLATE utf8_swedish_ci";
 

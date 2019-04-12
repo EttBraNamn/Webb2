@@ -29,12 +29,12 @@ function GetBios($comments)
 
 	if (!($stmt = $connect->prepare($query)))
 	{
-		Error("Couldn't prepare query, something might be wrong with the sql server connection." . $query);
+		Error("Couldn't prepare query." . $query);
 	}
 
 	if (!($stmt->execute()))
 	{
-		Error("Couldn't execute query, something might be wrong with the query." . $query);
+		Error("Couldn't execute query." . $query);
 	}
 
 	$result = $stmt->fetchAll();

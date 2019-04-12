@@ -13,7 +13,6 @@ session_start();
 
 if (!isset($_SESSION['name']))
 {
-    Error("Isset");
     header("location: index.php");
     exit();
 }
@@ -53,7 +52,6 @@ if (!($stmt->execute()))
 
 if (empty($_FILES['file']['tmp_name']))
 {
-    Error("KYs");
     header("location: profile.php");
     exit();
 }
