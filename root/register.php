@@ -139,6 +139,7 @@ session_start();
 $_SESSION["name"] = $name;
 $_SESSION["password"] = $password;
 
+
 header("location: index.php");
 exit();
 ?>

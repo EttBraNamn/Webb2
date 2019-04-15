@@ -236,8 +236,6 @@ else
 	$page = 1;
 }
 
-
-
 $toPrint = "";
 if (isset($_SESSION['name']))
 {
