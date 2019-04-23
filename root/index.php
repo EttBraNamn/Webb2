@@ -94,12 +94,12 @@ function Posts($page)
 	$toReturn .= "<div>";
 	foreach ($posts as $p)
 	{
-		$toReturn .= "<div class=\"post\" onclick=\"window.location.href = 'post.php?id=" . $p['id'] . "'\"><p class=\"subject\"><a href=\"post.php?id=" . $p['id'] . "\">";
-		$toReturn .= $p['subject'] . "</a></p><div class=\"profile\">";
+		$toReturn .= "<div class=\"post\" onclick=\"window.location.href = 'post.php?id=" . $p['id'] . "'\"><h3 class=\"subject\">";
+		$toReturn .= $p['subject'] . "</h3><div class=\"profile\">";
 		$toReturn .= "<img class=\"profilepic\" src=\"pic/" . $p['name'] . ".jpg\"/><br/>";
 		$toReturn .= "<label class=\"name\">" . $p['name'] . "</label></div>";
 		$toReturn .= "<div class=\"text\"><label style=\"width:60%;float:left;\">" . $p['body'] . "</label>";
-		$toReturn .= "<img class=\"pic\" src=\"post/" . $p['id'] . "." . $p['image'] . "\" />";
+		$toReturn .= "<img class=\"postImage\" src=\"post/" . $p['id'] . "." . $p['image'] . "\" />";
 		$toReturn .= "</div></div>";
 		$toReturn .= "<hr/>";
 	}
@@ -174,9 +174,9 @@ function NotLoggedStart()
 
 
     <div class=\"header\" id=\"not\">
-        <input type=\"button\" onclick=\"window.location.href = 'login.php';\" style=\"width:10%\"value=\"Login\"/>
-        <input type=\"button\" onclick=\"window.location.href = 'signup.php';\" style=\"width:10%\" value=\"Sign up\" />
-        <input type=\"button\" onclick=\"document.getElementById('not').innerHTML = '';\"style=\"width:10%\" value=\"Hide this!\"/>
+        <input class=\"hbutton hlbutton\" type=\"button\" onclick=\"window.location.href = 'login.php';\" value=\"Login\"/>
+        <input class=\"hbutton hlbutton\" type=\"button\" onclick=\"window.location.href = 'signup.php';\"  value=\"Sign up\" />
+        <input class=\"hbutton hrbutton\" type=\"button\" onclick=\"document.getElementById('not').innerHTML = '';\"value=\"Hide this!\"/>
     </div>
 
     <div id=\"input\" style=\"width:45%;margin-top:10px;\">
@@ -198,10 +198,10 @@ function LoggedStart()
 
 
     <div class=\"header\">
-        <input class=\"hbutton\" type=\"button\" style=\"width:24.8%\" value=\"Make Post\" onclick=\"MakePost()\" />
-        <input class=\"hbutton\" type=\"button\" style=\"width:24.8%\" value=\"Profile\" onclick=\"window.location.href = 'profile.php'\" />
-        <input class=\"hbutton\" type=\"button\" style=\"width:24.8%\" value=\"Post History\" onclick=\"window.location.href = 'list.php'\" />
-        <input class=\"hbutton\" type=\"button\" style=\"width:24.8%\" value=\"Log Out\" onclick=\"window.location.href = 'logout.php'\" />
+        <input class=\"hbutton hlbutton\" type=\"button\"  value=\"Make Post\" onclick=\"MakePost()\" />
+        <input class=\"hbutton hlbutton\" type=\"button\"  value=\"Profile\" onclick=\"window.location.href = 'profile.php'\" />
+        <input class=\"hbutton hlbutton\" type=\"button\"  value=\"Post History\" onclick=\"window.location.href = 'list.php'\" />
+        <input class=\"hbutton hrbutton\" type=\"button\"  value=\"Log Out\" onclick=\"window.location.href = 'logout.php'\" />
     </div>
 
     <div id=\"input\" style=\"width:45%;margin-top:10px;\">

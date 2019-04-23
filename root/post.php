@@ -87,7 +87,7 @@ function HandlePost($op, $loggedIn = false)
 		$bio[0]['bio'] = "User deleted :(";
 	}
 
-	$toPrint = "<h3>" . $op['subject'] . "</h3><br/>";
+	$toPrint = "<h3 class=\"subject\">" . $op['subject'] . "</h3><br/>";
 	$toPrint .= "<div class=\"profile\"><img class=\"profilepic\" src=\"pic/" . $op['name'] . ".jpg\"/>";
 	$toPrint .= "<br/><label>" . $op['name']. "</label><br/>";
 	$toPrint .= "<label>" . $bio[0]['bio'] . "</label><br/>";
@@ -130,14 +130,14 @@ function HandleComments($comments, $loggedIn = false)
 			$toReturn .= "<form action=\"deleteComment.php\" method=\"post\">
 			<input type=\"hidden\" name=\"id\" value=\"". $_GET['id'] . "\"/>
 			<input type=\"hidden\" name=\"date\" value=\"" . $comment['date']. "\"/>
-			<input type=\"submit\" name=\"submit\" value=\"Delete\"/>
+			<input class=\"pbutton\" type=\"submit\" name=\"submit\" value=\"Delete\"/>
 			</form>";
 		
 			if (in_array($_SESSION['name'], ADMIN))
 			{
 				$toReturn .= "<form action=\"deleteUser.php\" method=\"post\">
 				<input type=\"hidden\" name=\"name\" value=\"" . $comment['name'] . "\"/>
-				<input type=\"submit\" name=\"submit\" value=\"DELETE USER!\"/>
+				<input class=\"pbutton\" type=\"submit\" name=\"submit\" value=\"DELETE USER!\"/>
 				</form>";
 			}
 		}
@@ -173,11 +173,12 @@ function HtmlStart()
 	}
 	else
 	{
-		$toReturn .= "<div class=\"header\" id=\"not\">
-        <h2>You're not logged in. Do you want to do it now?</h2>
-        <input type=\"button\" onclick=\"window.location.href = 'login.php';\" style=\"width:10%\"value=\"Yes\"/>
-        <input type=\"button\" onclick=\"window.location.href = 'signup.php';\" style=\"width:10%\" value=\"Sign up\" />
-        <input type=\"button\" onclick=\"Not()\" style=\"width:10%\" value=\"No\"/>
+		$toReturn .= "   <div class=\"header\" id=\"not\">
+		<input class=\"hbutton hlbutton\" type=\"button\" style=\"\" value=\"Main Page\" onclick=\"window.location.href = 'index.php'\" />
+        <input class=\"hbutton hlbutton\" type=\"button\" onclick=\"window.location.href = 'login.php';\" value=\"Login\"/>
+		<input class=\"hbutton hlbutton\" type=\"button\" onclick=\"window.location.href = 'signup.php';\"  value=\"Sign up\" />
+    </div>
+
     </div>";
 	}
 	$toReturn .= "<!---ALL POSTS AND COMMENTS--->

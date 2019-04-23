@@ -12,11 +12,12 @@ function Write($a = "n")
 
 	<head>
         <meta charset=\"utf-8\" />
+        <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">
 	    <title>Login</title>
 	</head>
 
     <body>
-        <div style=\"width:10%;text-align:left;margin-left:45%;margin-top:5%\">
+        <div class=\"login\" >
             <form action=\"logincheck.php\" method=\"post\">
                 <p>Username:</p>
                 <input type=\"text\" style=\"width:100%\" onchange=\"Valid()\" name=\"name\" id=\"name\"/>
