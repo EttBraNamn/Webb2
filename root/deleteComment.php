@@ -36,7 +36,7 @@ $name = $_SESSION['name'];
 
 $connect = new PDO("mysql:host=" . SERVERNAME . ";dbname=" . DBNAME, USERNAME, PASSWORD);
 
-$query = "SELECT * FROM post WHERE id=:id AND name=:name";
+$query = "SELECT * FROM comments WHERE id=:id AND name=:name AND date=:date";
 
 if (!$stmt = $connect->prepare($query))
 {
@@ -44,6 +44,7 @@ if (!$stmt = $connect->prepare($query))
 }
 $stmt->bindParam(":id", $id);
 $stmt->bindParam(":name", $name);
+$stmt->bindParam("date", $date);
 //If it can't be executed
 if(!$stmt->execute())
 {
@@ -56,7 +57,7 @@ $ret = $stmt->fetchAll();
 if (in_array($name, ADMIN))
 {
     
-    $query = "DELETE FROM post WHERE id=:id";
+    $query = "DELETE FROM comments WHERE id=:id AND date=:date";
 }
 else
 {
@@ -64,7 +65,7 @@ else
 	{
 		Error("You can't delete other people's posts");
 	}
-    $query = "DELETE FROM post WHERE id=:id AND name=\"" . $name . "\"";
+    $query = "DELETE FROM comments WHERE id=:id AND date=:date";
 }
 
 
@@ -75,6 +76,7 @@ if (!$stmt = $connect->prepare($query))
 	Error("Couldn't prepare query" . $query);
 }
 $stmt->bindParam(":id", $id);
+$stmt->bindParam(":date", $date);
 //If it can't be executed
 if(!$stmt->execute())
 {
@@ -92,6 +94,6 @@ if(!$stmt->execute())
     Error("Couldn't execute query" . $query);
 }
 
-header("location: index.php");
+header("location: post.php?id=" . $id);
 exit();
 ?>

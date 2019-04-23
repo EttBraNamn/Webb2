@@ -174,10 +174,9 @@ function NotLoggedStart()
 
 
     <div class=\"header\" id=\"not\">
-        <h2>You're not logged in. Do you want to do it now?</h2>
-        <input type=\"button\" onclick=\"window.location.href = 'login.php';\" style=\"width:10%\"value=\"Yes\"/>
+        <input type=\"button\" onclick=\"window.location.href = 'login.php';\" style=\"width:10%\"value=\"Login\"/>
         <input type=\"button\" onclick=\"window.location.href = 'signup.php';\" style=\"width:10%\" value=\"Sign up\" />
-        <input type=\"button\" onclick=\"document.getElementById('not').innerHTML = '';\"style=\"width:10%\" value=\"No\"/>
+        <input type=\"button\" onclick=\"document.getElementById('not').innerHTML = '';\"style=\"width:10%\" value=\"Hide this!\"/>
     </div>
 
     <div id=\"input\" style=\"width:45%;margin-top:10px;\">

@@ -55,9 +55,9 @@ function HtmlStart()
     </head>
     <body>
         <div class=\"header\">
-            <input class=\"hbutton\" type=\"button\" style=\"width:33%\" value=\"Main Page\" onclick=\"window.location.href = 'index.php'\" />
-            <input class=\"hbutton\" type=\"button\" style=\"width:33%\" value=\"Profile\" onclick=\"window.location.href = 'profile.php'\" />
-            <input class=\"hbutton\" type=\"button\" style=\"width:33%\" value=\"Log Out\" onclick=\"window.location.href = 'logout.php'\" />
+            <input class=\"hlbutton\" type=\"button\" style=\"\" value=\"Main Page\" onclick=\"window.location.href = 'index.php'\" />
+            <input class=\"hlbutton\" type=\"button\" style=\"\" value=\"Profile\" onclick=\"window.location.href = 'profile.php'\" />
+            <input class=\"hrbutton\" type=\"button\" style=\"\" value=\"Log Out\" onclick=\"window.location.href = 'logout.php'\" />
         </div>
         <br style=\"margin-top:25px;\">";
 }

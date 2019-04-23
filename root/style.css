@@ -1,20 +1,59 @@
 .post {
     height: 40%;
+    background-color: #f5f5f5;
+}
+.post::after{
+    clear: both;
+}
+.header{
+    width: 100%;
+    background-color: #e2454a;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.header::after{
+    clear: both;
+}
+.hbutton{
+    border-radius: 100px;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    background-color: #303030;
+    border-width: 0px;
+    color: #ffffff;
+    width: 10%;
+}
+
+.hlbutton{
+    margin-left: 1%;
+}
+.hrbutton{
+    margin-right: 1%;
+    float: right;
 }
 
 .profile {
-    width: 30%;
+    margin-left: 1%;
+    width: 29%;
     float: left;
     height: 100%;
 }
-
+.postImage{
+    float:right;
+    height:85%;
+    max-width: 100%
+}
 .text {
-    width: 70%;
+    width: 69%;
     float: right;
     height: 100%;
 }
 body{
+    margin-top: 0px;
+    margin-left:0px;
+    width: 100%;
     font-family: "Times New Roman", Times, serif;
+    background-color: #dadada;
 }
 .profilepic {
     width: 25%;
@@ -45,7 +84,11 @@ body{
     width: 60%;
     height: auto;
 }
-
+.pbutton{
+    background-color: #303030;
+    border-width: 0px;
+    color: #ffffff;
+}
 .button {
     margin-top: 10px;
 }
@@ -78,4 +121,8 @@ body{
 .listpic{
     max-width:80%;
     max-height:90%
+}
+.uploads{
+    width:98%;
+    margin-left: 1%;
 }

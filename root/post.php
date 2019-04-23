@@ -87,7 +87,7 @@ function HandlePost($op, $loggedIn = false)
 		$bio[0]['bio'] = "User deleted :(";
 	}
 
-	$toPrint = "<h3>" . $op['subject'] . "</h3><hr/>";
+	$toPrint = "<h3>" . $op['subject'] . "</h3><br/>";
 	$toPrint .= "<div class=\"profile\"><img class=\"profilepic\" src=\"pic/" . $op['name'] . ".jpg\"/>";
 	$toPrint .= "<br/><label>" . $op['name']. "</label><br/>";
 	$toPrint .= "<label>" . $bio[0]['bio'] . "</label><br/>";
@@ -95,20 +95,20 @@ function HandlePost($op, $loggedIn = false)
 	if ($loggedIn && ($_SESSION['name'] == $op['name'] || in_array($_SESSION['name'], ADMIN)))
 	{
 		$toPrint .= "<form action=\"deletePost.php\" method=\"post\"><input type=\"hidden\" name=\"id\" value=\"";
-		$toPrint .= $_GET['id'] . "\"/><input type=\"submit\" name=\"submit\" value=\"Delete\"/></form>";
+		$toPrint .= $_GET['id'] . "\"/><input type=\"submit\" class=\"pbutton\" name=\"submit\" value=\"Delete\"/></form>";
 		
 		if (in_array($_SESSION['name'], ADMIN))
 		{
 			$toPrint .= "<form action=\"deleteUser.php\" method=\"post\">
 			<input type=\"hidden\" name=\"name\" value=\"" . $op['name'] . "\"/>
-			<input type=\"submit\" name=\"submit\" value=\"DELETE USER!\"/>
+			<input class=\"pbutton\" type=\"submit\" name=\"submit\" value=\"DELETE USER!\"/>
 			</form>";
 		}
 	}
 	$toPrint .= "</div><div class=\"text\"><label style=\"width:60%;float:left;\">";
 	$toPrint .= $op['body'] . "</label>";
-	$toPrint .= "<img src=\"post/" .  $_GET['id'] . ".".  $op['image'] ."\" onclick=\"window.location.href = 'post/" .  $_GET['id'] . ".".  $op['image'] ."'\"style=\"float:right;max-height:100%\" />";
-	$toPrint .= "</div><hr/></div>";
+	$toPrint .= "<img src=\"post/" .  $_GET['id'] . ".".  $op['image'] ."\" onclick=\"window.location.href = 'post/" .  $_GET['id'] . ".".  $op['image'] ."'\" class=\"postImage\"style=\"\" />";
+	$toPrint .= "</div><hr/></div><br>";
 
 	return $toPrint;
 }
@@ -143,7 +143,7 @@ function HandleComments($comments, $loggedIn = false)
 		}
 		
 		$toReturn .= " </div><div class=\"text ctext\"><label>" . $comment['body'] . "</label>";
-		$toReturn .= "</div></div><hr />";
+		$toReturn .= "</div></div><br />";
 	}
 	$toReturn .= "</div>";
 	return $toReturn;
@@ -165,10 +165,10 @@ function HtmlStart()
 	if (isset($_SESSION['name']) && VerifyUser($_SESSION['name'], $_SESSION['password']))
 	{
 		$toReturn .= "<div class=\"header\">
-		<input class=\"hbutton\" type=\"button\" style=\"width:24.8%\" value=\"Main Page\" onclick=\"window.location.href = 'index.php'\" />
-		<input class=\"hbutton\" type=\"button\" style=\"width:24.8%\" value=\"Profile\" onclick=\"window.location.href = 'profile.php'\" />
-		<input class=\"hbutton\" type=\"button\" style=\"width:24.8%\" value=\"Post History\" onclick=\"window.location.href = 'list.php'\" />
-		<input class=\"hbutton\" type=\"button\" style=\"width:24.8%\" value=\"Log Out\" onclick=\"window.location.href = 'logout.php'\" />
+		<input class=\"hbutton hlbutton\" type=\"button\" style=\"\" value=\"Main Page\" onclick=\"window.location.href = 'index.php'\" />
+		<input class=\"hbutton hlbutton\" type=\"button\" style=\"\" value=\"Profile\" onclick=\"window.location.href = 'profile.php'\" />
+		<input class=\"hbutton hlbutton\" type=\"button\" style=\"\" value=\"Post History\" onclick=\"window.location.href = 'list.php'\" />
+		<input class=\"hbutton hrbutton\" type=\"button\" style=\"\" value=\"Log Out\" onclick=\"window.location.href = 'logout.php'\" />
 	</div>";
 	}
 	else
