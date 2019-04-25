@@ -66,11 +66,11 @@ function HandleComments($comments, $loggedIn = false)
 			$toReturn .= "<form action=\"deleteComment.php\" method=\"post\">
 			<input type=\"hidden\" name=\"id\" value=\"". $_GET['id'] . "\"/>
 			<input type=\"hidden\" name=\"date\" value=\"" . $comment['date']. "\"/>
-			<input type=\"submit\" name=\"submit\" value=\"Delete\"/>
+			<input class=\"pButton\"type=\"submit\" name=\"submit\" value=\"Delete\"/>
 			</form>";
 		}
 		$toReturn .= " </div><div class=\"text ctext\"><label>" . $comment['body'] . "</label>";
-		$toReturn .= "</div><hr /></div>";
+		$toReturn .= "</div></div>";
 	}
 	return $toReturn;
 }

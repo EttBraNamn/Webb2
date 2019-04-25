@@ -30,6 +30,6 @@ function MakePost() {
     string += "<label>Subject:</label><br/><input type='textbox' style='width:100%'name='subject'/>"
     string += "<br/><label style='margin-top:10px;'>Body:</label><br/>"
     string += "<textarea name='text' class='input' id='comment'></textarea>";
-    string += "<br /><input type='file' name='file' style='margin-top:5px;'/><br /><input type='submit' style='margin-top:5px;' name='submit' /></form>";
+    string += "<br /><input type='file' name='file' style='margin-top:5px;'/><br /><input class='indexbutton' type='submit' name='submit' /></form>";
     document.getElementById("input").innerHTML = string;
 }

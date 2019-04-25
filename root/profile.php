@@ -1,9 +1,10 @@
 <?php
 function HtmlEnd()
 {
-    return "<input type=\"button\" value=\"Edit\" onclick=\"EditEnable();\"/>
-    <input type=\"button\" value=\"Delete Profile\" style=\"background-color: red;\" onclick=\"DeleteAsk();\"/>
+    return "<input class=\"aabutton\" type=\"button\" value=\"Edit\" onclick=\"EditEnable();\"/>
+    <input type=\"button\" value=\"Delete Profile\" class=\"aabutton\" onclick=\"DeleteAsk();\"/>
     <div id=\"delete\">
+    </div>
     </div>
 </body>
 </html>";
@@ -20,21 +21,22 @@ function HtmlStart()
     <body>
         <script type=\"text/javascript\" src=\"profile.js\"></script>
         <div class=\"header\">
-            <input class=\"hbutton\" type=\"button\" style=\"width:33%\" value=\"Main Page\" onclick=\"window.location.href = 'index.php'\" />
-            <input class=\"hbutton\" type=\"button\" style=\"width:33%\" value=\"Post History\" onclick=\"window.location.href = 'list.php'\" />
-            <input class=\"hbutton\" type=\"button\" style=\"width:33%\" value=\"Log Out\" onclick=\"window.location.href = 'logout.php'\" />
+            <input class=\"hbutton\" type=\"button\" value=\"Main Page\" onclick=\"window.location.href = 'index.php'\" />
+            <input class=\"hbutton\" type=\"button\" value=\"Post History\" onclick=\"window.location.href = 'list.php'\" />
+            <input class=\"hbutton hrbutton\" type=\"button\"  value=\"Log Out\" onclick=\"window.location.href = 'logout.php'\" />
         </div>
         <br>
+        <div class=\"aa\">
         <form action=\"editProfile.php\" enctype=\"multipart/form-data\" name=\"form\" method=\"post\">
             <div class=\"information\">";
 }
 
 function HandleUser($user)
 {
-    $toReturn = "<p>Name:</p><p>" . $user['name'] . "</p>";
-    $toReturn .= "<hr><p>Profile Picture:</p><img style=\"max-width:10%\" src=\"pic/" . $user['name'] . ".jpg\"/>";
-    $toReturn .= "<div id=\"image\"></div><hr><p>Bio:</p><div id=\"text\"></div><p id=\"original\">" . $user['bio'] . "</p>";
-    $toReturn .= "<hr></div><div id=\"submitbutton\"></div></form>";
+    $toReturn = "<p><b>Name:</b> " . $user['name'] . "</p>";
+    $toReturn .= "<p>Profile Picture:</p><img style=\"max-width:10%\" src=\"pic/" . $user['name'] . ".jpg\"/>";
+    $toReturn .= "<div id=\"image\"></div><p>Bio:</p><div id=\"text\"></div><p id=\"original\">" . $user['bio'] . "</p>";
+    $toReturn .= "</div><div id=\"submitbutton\"></div></form>";
     return $toReturn;
 }
 

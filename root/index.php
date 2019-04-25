@@ -94,14 +94,13 @@ function Posts($page)
 	$toReturn .= "<div>";
 	foreach ($posts as $p)
 	{
-		$toReturn .= "<div class=\"post\" onclick=\"window.location.href = 'post.php?id=" . $p['id'] . "'\"><h3 class=\"subject\">";
+		$toReturn .= "<div class=\"post indexpost\" onclick=\"window.location.href = 'post.php?id=" . $p['id'] . "'\"><h3 class=\"subject\">";
 		$toReturn .= $p['subject'] . "</h3><div class=\"profile\">";
 		$toReturn .= "<img class=\"profilepic\" src=\"pic/" . $p['name'] . ".jpg\"/><br/>";
 		$toReturn .= "<label class=\"name\">" . $p['name'] . "</label></div>";
 		$toReturn .= "<div class=\"text\"><label style=\"width:60%;float:left;\">" . $p['body'] . "</label>";
 		$toReturn .= "<img class=\"postImage\" src=\"post/" . $p['id'] . "." . $p['image'] . "\" />";
 		$toReturn .= "</div></div>";
-		$toReturn .= "<hr/>";
 	}
 
 	$toReturn .= "</div>";
@@ -176,7 +175,6 @@ function NotLoggedStart()
     <div class=\"header\" id=\"not\">
         <input class=\"hbutton hlbutton\" type=\"button\" onclick=\"window.location.href = 'login.php';\" value=\"Login\"/>
         <input class=\"hbutton hlbutton\" type=\"button\" onclick=\"window.location.href = 'signup.php';\"  value=\"Sign up\" />
-        <input class=\"hbutton hrbutton\" type=\"button\" onclick=\"document.getElementById('not').innerHTML = '';\"value=\"Hide this!\"/>
     </div>
 
     <div id=\"input\" style=\"width:45%;margin-top:10px;\">

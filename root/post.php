@@ -108,7 +108,7 @@ function HandlePost($op, $loggedIn = false)
 	$toPrint .= "</div><div class=\"text\"><label style=\"width:60%;float:left;\">";
 	$toPrint .= $op['body'] . "</label>";
 	$toPrint .= "<img src=\"post/" .  $_GET['id'] . ".".  $op['image'] ."\" onclick=\"window.location.href = 'post/" .  $_GET['id'] . ".".  $op['image'] ."'\" class=\"postImage\"style=\"\" />";
-	$toPrint .= "</div><hr/></div><br>";
+	$toPrint .= "</div></div><br>";
 
 	return $toPrint;
 }

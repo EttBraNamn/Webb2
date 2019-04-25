@@ -33,18 +33,19 @@ if (VerifyUser($_SESSION['name'], $_SESSION['password']) != "correct")
 
 $id = $_POST['id'];
 $name = $_SESSION['name'];
+$date = $_POST['date'];
 
 $connect = new PDO("mysql:host=" . SERVERNAME . ";dbname=" . DBNAME, USERNAME, PASSWORD);
 
-$query = "SELECT * FROM comments WHERE id=:id AND name=:name AND date=:date";
+$query = "SELECT * FROM comments WHERE id=:id AND date=:date AND name=:name";
 
 if (!$stmt = $connect->prepare($query))
 {
 	Error("Couldn't prepare query" . $query);
 }
 $stmt->bindParam(":id", $id);
+$stmt->bindParam(":date", $date);
 $stmt->bindParam(":name", $name);
-$stmt->bindParam("date", $date);
 //If it can't be executed
 if(!$stmt->execute())
 {
@@ -78,17 +79,6 @@ if (!$stmt = $connect->prepare($query))
 $stmt->bindParam(":id", $id);
 $stmt->bindParam(":date", $date);
 //If it can't be executed
-if(!$stmt->execute())
-{
-    Error("Couldn't execute query" . $query);
-}
-
-$query = "DELETE FROM comments WHERE id=:id";
-if (!$stmt = $connect->prepare($query))
-{
-	Error("Couldn't prepare query" . $query);
-}
-$stmt->bindParam(':id', $id);
 if(!$stmt->execute())
 {
     Error("Couldn't execute query" . $query);

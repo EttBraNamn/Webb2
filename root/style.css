@@ -1,39 +1,74 @@
 .post {
     height: 40%;
-    background-color: #f5f5f5;
+    background-color: #efefef;
     width: 100%;
 }
-.post::after{
+.post:after{
     clear: both;
+}
+.indexpost:hover
+{
+    background-color:  #ffffff;
 }
 .subject{
     margin-left: 1%;
 }
 .header{
     width: 100%;
-    background-color: #e2454a;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    background-color: #303030;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    height: 5%;
 }
 .header::after{
     clear: both;
 }
-.hbutton{
-    border-radius: 100px;
-    padding-top: 0.5%;
-    padding-bottom: 0.5%;
-    background-color: #303030;
+#input{
+    margin-left: 1%;
+}
+.indexbutton{
+    background-color: #e2454a;
     border-width: 0px;
     color: #ffffff;
+    margin-top: 1%;
+    padding-top: 0.3%;
+    padding-bottom: 0.2%;
+    padding-left: 0.5%;
+    padding-right: 0.5%;
+    border-radius: 5px;
+}
+.indexbutton:hover
+{
+    background-color: #f15459;
+}
+.hbutton{
+    border-radius: 0;
+    padding-top: 0%;
+    padding-bottom: 0%;
+    background-color: #303030;
+    border-width: 0px;
+    border-right-width: 2px;
+    color: #ffffff;
     width: 10%;
+    height: 100%;
+}
+.hbutton:hover
+{
+    background-color: #3f3f3f;
 }
 
 .hlbutton{
-    margin-left: 1%;
+   
 }
 .hrbutton{
-    margin-right: 1%;
+    border-left-width: 2px;
+    border-right-width: 0px;
     float: right;
+}
+
+.aa{
+    width: 99%;
+    margin-left: 5px;
 }
 
 .profile {
@@ -89,7 +124,7 @@ body{
     height: auto;
 }
 .pbutton{
-    background-color: #303030;
+    background-color: #e2454a;
     border-width: 0px;
     color: #ffffff;
     margin-top: 1%;
@@ -98,6 +133,40 @@ body{
     padding-bottom: 0.2%;
     border-radius: 5px;
 }
+.pbutton:hover
+{
+    background-color: #f15459;
+}
+.aabutton
+{
+    background-color: #e2454a;
+    border-width: 0px;
+    color: #ffffff;
+    width: 5%;
+    padding-top: 0.3%;
+    padding-bottom: 0.2%;
+    border-radius: 5px; 
+}
+.aabutton:hover
+{
+    background-color: #f15459;
+}
+.inputbutton
+{
+    background-color: #e2454a;
+    border-width: 0px;
+    color: #ffffff;
+    width: 5%;
+    padding-top: 0.3%;
+    padding-bottom: 0.2%;
+    border-radius: 5px; 
+    margin-left: 0.3%;
+}
+.inputbutton:hover
+{
+    background-color: #f15459;
+}
+
 .button {
     margin-top: 10px;
 }
