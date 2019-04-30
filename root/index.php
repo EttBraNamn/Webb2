@@ -259,8 +259,6 @@ if (isset($_GET['error']))
 $toPrint .= Posts($page);
 
 
-$toPrint .= Navigator($page);
-
 $toPrint .= EndHtml();
 
 echo($toPrint);
