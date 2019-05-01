@@ -16,26 +16,29 @@ function Write($a = "none")
 	$arr['none'] = "";
 	$arr[''] = '';
 	
-	echo("<html>
+	echo("<!DOCTYPE html><html>
 <head>
 <title>Sign up!</title>
+<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">
 </head>
-<div style=\"width:10%;text-align:left;margin-left:45%;margin-top:5%\">
+<body>
+<div class=\"login\">
 	<form action=\"register.php\" enctype=\"multipart/form-data\" name=\"form\" method=\"post\">
 		<p>Username:</p>
-		<input type=\"textbox\" name=\"name\"/>
+		<input type=\"text\" name=\"name\"/>
 		<br>
 		<p>Password</p>
 		<input type=\"password\" name=\"password\"/>
 		<p>Image:</p>
-		<input style=\"margin-bottom:10%\" type=\"file\" name=\"file\" value=\"File\"/>
+		<input style=\"margin-bottom:10%\" type=\"file\" name=\"file\" />
 		<br />
 		<div style=\"background-color:red;margin-top:5px;margin-bottom:5px;width:100%\">
 				<label>" . $arr[$a] . "</label>
 		</div>
-		<input type=\"submit\" name=\"register\">
+		<input class=\"loginbutton\" type=\"submit\" value=\"Register\" name=\"register\">
 	</form>
 </div>
+</body>
 </html>
 ");
 	

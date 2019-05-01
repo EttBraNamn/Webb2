@@ -8,7 +8,7 @@ function Write($a = "n")
 	$arr['empty'] = "You need to enter both fields.";
 	$arr['error'] = "Something went wrong with the database";
 	$arr['n'] = "";
-	echo("<html>
+	echo("<!DOCTYPE html5><html>
 
 	<head>
         <meta charset=\"utf-8\" />
@@ -28,7 +28,7 @@ function Write($a = "n")
 				<label>". $arr[$a] . "</label>
                 </div>
                 <p style=\"font-size:15px;\">Don't have an account?<br/> <a href=\"signup.php\">Sign up!</a></p>
-                <input type=\"submit\" disabled=\"true\" name=\"submit\" id=\"submit\"/>
+                <input class=\"loginbutton\" value=\"Login\" type=\"submit\" disabled name=\"submit\" id=\"submit\"/>
             </form>
         </div>
         <script>

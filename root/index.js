@@ -27,7 +27,7 @@ function Navigate(dif) {
 }
 function MakePost() {
     var string = "<form action='upload.php' method='post' enctype='multipart/form-data'>";
-    string += "<label>Subject:</label><br/><input type='textbox' style='width:100%'name='subject'/>"
+    string += "<label>Subject:</label><br/><input type='text' style='width:100%'name='subject'/>"
     string += "<br/><label style='margin-top:10px;'>Body:</label><br/>"
     string += "<textarea name='text' class='input' id='comment'></textarea>";
     string += "<br /><input type='file' name='file' style='margin-top:5px;'/><br /><input class='indexbutton' type='submit' name='submit' /></form>";

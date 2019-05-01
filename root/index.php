@@ -96,10 +96,10 @@ function Posts($page)
 	{
 		$toReturn .= "<div class=\"post indexpost\" onclick=\"window.location.href = 'post.php?id=" . $p['id'] . "'\"><h3 class=\"subject\">";
 		$toReturn .= $p['subject'] . "</h3><div class=\"profile\">";
-		$toReturn .= "<img class=\"profilepic\" src=\"pic/" . $p['name'] . ".jpg\"/><br/>";
+		$toReturn .= "<img alt=\"Deleted profileimage\" class=\"profilepic\" src=\"pic/" . $p['name'] . ".jpg\"/><br/>";
 		$toReturn .= "<label class=\"name\">" . $p['name'] . "</label></div>";
 		$toReturn .= "<div class=\"text\"><label style=\"width:60%;float:left;\">" . $p['body'] . "</label>";
-		$toReturn .= "<img class=\"postImage\" src=\"post/" . $p['id'] . "." . $p['image'] . "\" />";
+		$toReturn .= "<img alt=\"Deleted image\" class=\"postImage\" src=\"post/" . $p['id'] . "." . $p['image'] . "\" />";
 		$toReturn .= "</div></div>";
 	}
 
@@ -154,8 +154,8 @@ function Navigator($page)
 		$numbers .= "</b>";
 	}
 	//Wraps $numbers around the neccesary strings
-	$toReturn = "<div class=\"navigation\"><img src=\"left.png\" onclick=\"Navigate(-1)\" /><label>" . $numbers;
-	$toReturn .= "</label><img src=\"right.png\" onclick=\"Navigate(1)\" /></div>";
+	$toReturn = "<div class=\"navigation\"><img alt=\"Left\" src=\"left.png\" onclick=\"Navigate(-1)\" /><label>" . $numbers;
+	$toReturn .= "</label><img alt=\"Right\" src=\"right.png\" onclick=\"Navigate(1)\" /></div>";
 	return $toReturn;
 }
 
@@ -169,7 +169,7 @@ function NotLoggedStart()
     <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">
 </head>
 <body>
-    <script type=\"text/javascript\" src=\"index.js\"></script>
+    <script src=\"index.js\"></script>
 
 
     <div class=\"header\" id=\"not\">
@@ -192,7 +192,7 @@ function LoggedStart()
     <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">
 </head>
 <body>
-    <script type=\"text/javascript\" src=\"index.js\"></script>
+    <script src=\"index.js\"></script>
 
 
     <div class=\"header\">
@@ -233,7 +233,7 @@ else
 	$page = 1;
 }
 
-$toPrint = "";
+$toPrint = "<!DOCTYPE html5>";
 if (isset($_SESSION['name']))
 {
 	$toPrint .= StartHtml((VerifyUser($_SESSION['name'], $_SESSION['password'])  == "correct"));

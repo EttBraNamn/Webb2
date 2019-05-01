@@ -88,7 +88,7 @@ function HandlePost($op, $loggedIn = false)
 	}
 
 	$toPrint = "<h3 class=\"subject\">" . $op['subject'] . "</h3><br/>";
-	$toPrint .= "<div class=\"profile\"><img class=\"profilepic\" src=\"pic/" . $op['name'] . ".jpg\"/>";
+	$toPrint .= "<div class=\"profile\"><img alt=\"Missing image\" class=\"profilepic\" src=\"pic/" . $op['name'] . ".jpg\"/>";
 	$toPrint .= "<br/><label>" . $op['name']. "</label><br/>";
 	$toPrint .= "<label>" . $bio[0]['bio'] . "</label><br/>";
 	$toPrint .= "<time>" . $op['date'] . "</time>";
@@ -107,7 +107,7 @@ function HandlePost($op, $loggedIn = false)
 	}
 	$toPrint .= "</div><div class=\"text\"><label style=\"width:60%;float:left;\">";
 	$toPrint .= $op['body'] . "</label>";
-	$toPrint .= "<img src=\"post/" .  $_GET['id'] . ".".  $op['image'] ."\" onclick=\"window.location.href = 'post/" .  $_GET['id'] . ".".  $op['image'] ."'\" class=\"postImage\"style=\"\" />";
+	$toPrint .= "<img alt=\"Missing image\" src=\"post/" .  $_GET['id'] . ".".  $op['image'] ."\" onclick=\"window.location.href = 'post/" .  $_GET['id'] . ".".  $op['image'] ."'\" class=\"postImage\"style=\"\" />";
 	$toPrint .= "</div></div><br>";
 
 	return $toPrint;
@@ -121,7 +121,7 @@ function HandleComments($comments, $loggedIn = false)
 	//Goes through all the made comments in their sorted order
 	foreach ($comments as $comment)
 	{
-		$toReturn .= "<div class=\"post\"><div class=\"profile cprofile\"><img class=\"profilepic\" src=\"pic/" . $comment['name'] . ".jpg\"/>";;
+		$toReturn .= "<div class=\"post\"><div class=\"profile cprofile\"><img alt=\"Missing image\" class=\"profilepic\" src=\"pic/" . $comment['name'] . ".jpg\"/>";
 		$toReturn .= "<br /><label>" . $comment['name'] . "</label>";
 		$toReturn .= "<br /><label>" . $bios[$comment['name']] . "</label>";
 		$toReturn .= "<br /><time>" . $comment['date'] . "</time>";
@@ -152,7 +152,7 @@ function HandleComments($comments, $loggedIn = false)
 //Everything html related before the post
 function HtmlStart()
 {
-	$toReturn =  "<html>
+	$toReturn =  "<!DOCTYPE html5><html>
 <head>
     <title>
         Posts
@@ -161,7 +161,7 @@ function HtmlStart()
     <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">
 </head>
 <body>
-<script type=\"text/javascript\" src=\"post.js\"></script>";
+<script src=\"post.js\"></script>";
 	if (isset($_SESSION['name']) && VerifyUser($_SESSION['name'], $_SESSION['password']))
 	{
 		$toReturn .= "<div class=\"header\">

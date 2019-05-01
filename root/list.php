@@ -39,7 +39,7 @@ function PostHandle($posts, $list)
         {
             $toReturn .= "</div><br><div class=\"postrow\" >";
         }
-        $toReturn .= "<div class=\"block\"><img src=\"post/" . $list[$i] .".". $posts[$list[$i]]['image'] . "\" class=\"listpic\"/>
+        $toReturn .= "<div class=\"block\"><img alt=\"Image deleted\" src=\"post/" . $list[$i] .".". $posts[$list[$i]]['image'] . "\" class=\"listpic\"/>
         <br/><label><a href=\"post.php?id=" . $list[$i] . "\">" . $posts[$list[$i]]['subject'] . "</a></label></div>";
     } 
     $toReturn .= "</div></div>";
@@ -47,7 +47,7 @@ function PostHandle($posts, $list)
 }
 function HtmlStart()
 {
-    return "<html>
+    return "<!DOCTYPE html5><html>
     <head>
         <meta charset=\"UTF-8\"/>
         <title>List of posts and comments made</title>

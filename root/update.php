@@ -57,7 +57,7 @@ function HandleComments($comments, $loggedIn = false)
 	//Goes through all the made comments in their sorted order
 	foreach ($comments as $comment)
 	{
-		$toReturn .= "<div class=\"post\"><div class=\"profile cprofile\"><img class=\"profilepic\" src=\"pic/" . $comment['name'] . ".jpg\"/>";
+		$toReturn .= "<div class=\"post\"><div class=\"profile cprofile\"><img alt=\"Missing image\" class=\"profilepic\" src=\"pic/" . $comment['name'] . ".jpg\"/>";
 		$toReturn .= "<br /><label>" . $comment['name'] . "</label>";
 		$toReturn .= "<br /><label>" . $bios[$comment['name']] . "</label>";
 		$toReturn .= "<br /><time>" . $comment['date'] . "</time>";

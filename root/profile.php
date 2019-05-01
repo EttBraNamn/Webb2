@@ -12,14 +12,14 @@ function HtmlEnd()
 
 function HtmlStart()
 {
-    return "<html>
+    return "<!DOCTYPE html5><html>
     <head>
         <title>Profile</title>
         <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">
         <meta charset=\"UTF-8\" />
     </head>
     <body>
-        <script type=\"text/javascript\" src=\"profile.js\"></script>
+        <script src=\"profile.js\"></script>
         <div class=\"header\">
             <input class=\"hbutton\" type=\"button\" value=\"Main Page\" onclick=\"window.location.href = 'index.php'\" />
             <input class=\"hbutton\" type=\"button\" value=\"Post History\" onclick=\"window.location.href = 'list.php'\" />
@@ -34,7 +34,7 @@ function HtmlStart()
 function HandleUser($user)
 {
     $toReturn = "<p><b>Name:</b> " . $user['name'] . "</p>";
-    $toReturn .= "<p>Profile Picture:</p><img style=\"max-width:10%\" src=\"pic/" . $user['name'] . ".jpg\"/>";
+    $toReturn .= "<p>Profile Picture:</p><img alt=\"Missing image\" style=\"max-width:10%\" src=\"pic/" . $user['name'] . ".jpg\"/>";
     $toReturn .= "<div id=\"image\"></div><p>Bio:</p><div id=\"text\"></div><p id=\"original\">" . $user['bio'] . "</p>";
     $toReturn .= "</div><div id=\"submitbutton\"></div></form>";
     return $toReturn;
