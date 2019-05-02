@@ -30,7 +30,7 @@ function Ajax(url, post, done, error) {
         if (this.status == 200 && this.readyState == 4) {
             done(ajax);
         }
-    }
+    };
     ajax.onerror = error;
 
     //Getting the GET
@@ -82,7 +82,7 @@ function UpdateHandle(ajax) {
     //Shifts the old date to the new one
      var arr = document.getElementsByTagName("time");
      var highest = "0";
-     for (ob in arr)
+     for (var ob in arr)
      {
         if (highest < arr[ob].innerHTML)
         {

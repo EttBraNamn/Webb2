@@ -71,36 +71,47 @@ function GetPostCount()
 function Posts($page)
 {
 	//Gets the end and start id's
-	$page *= 20;
+	$page *= 2;
 	$count = GetPostCount();
 	$count = $count[0];
+	echo($count);
 	$dif = $count - $page;
+	echo($dif);
 	if (0 > $dif)
 	{
 		$end = 0;
-		$start = 20;
+		$start = 2;
 	}
 	else
 	{
 		$end = $count - $page;
 		$start = $end + 20;
 	}
-	$start += 1;
-	$end -= 1;
+	
+	$end -= 500;
 	
 	$posts = GetPosts($end, $start);
 
 	$toReturn = "";
 	$toReturn .= "<div>";
+	$i = 0;
 	foreach ($posts as $p)
 	{
-		$toReturn .= "<div class=\"post indexpost\" onclick=\"window.location.href = 'post.php?id=" . $p['id'] . "'\"><h3 class=\"subject\">";
-		$toReturn .= $p['subject'] . "</h3><div class=\"profile\">";
-		$toReturn .= "<img alt=\"Deleted profileimage\" class=\"profilepic\" src=\"pic/" . $p['name'] . ".jpg\"/><br/>";
-		$toReturn .= "<label class=\"name\">" . $p['name'] . "</label></div>";
-		$toReturn .= "<div class=\"text\"><label style=\"width:60%;float:left;\">" . $p['body'] . "</label>";
-		$toReturn .= "<img alt=\"Deleted image\" class=\"postImage\" src=\"post/" . $p['id'] . "." . $p['image'] . "\" />";
-		$toReturn .= "</div></div>";
+		if ($i < 2)
+		{
+			$toReturn .= "<div class=\"post indexpost\" onclick=\"window.location.href = 'post.php?id=" . $p['id'] . "'\"><h3 class=\"subject\">";
+			$toReturn .= $p['subject'] . "</h3><div class=\"profile\">";
+			$toReturn .= "<img alt=\"Deleted profileimage\" class=\"profilepic\" src=\"pic/" . $p['name'] . ".jpg\"/><br/>";
+			$toReturn .= "<label class=\"name\">" . $p['name'] . "</label></div>";
+			$toReturn .= "<div class=\"text\"><label style=\"width:60%;float:left;\">" . $p['body'] . "</label>";
+			$toReturn .= "<img alt=\"Deleted image\" class=\"postImage\" src=\"post/" . $p['id'] . "." . $p['image'] . "\" />";
+			$toReturn .= "</div></div>";
+			++$i;
+		}
+		else
+		{
+			break;
+		}
 	}
 
 	$toReturn .= "</div>";
