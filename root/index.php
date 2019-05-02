@@ -24,9 +24,24 @@ function sPosts($lhs, $rhs)
 }
 
 //Returns an array of posts
-function GetPosts($end, $start)
+function GetPosts($ar)
 {
-	$query = "SELECT * FROM post WHERE id<" . $start . " AND id>" . $end;
+	$s = "(";
+	foreach ($ar as $a)
+	{
+		$s .= $a['id'] . ",";
+	}
+	$i = strlen($s);
+	
+	if ($i > 1)
+	{
+		$s[$i - 1] = ")";
+	}
+	else
+	{
+		$s .= ")";
+	}
+	$query = "SELECT * FROM post WHERE id IN " . $s;
 	
 	$connect = new PDO("mysql:host=" . SERVERNAME . ";dbname=" . DBNAME, USERNAME, PASSWORD);
 
@@ -50,7 +65,7 @@ function GetPosts($end, $start)
 //returns the amount of posts in database
 function GetPostCount()
 {
-	$query = "SELECT max(id) FROM post ";
+	$query = "SELECT id FROM post ";
 
 	
 	$connect = new PDO("mysql:host=" . SERVERNAME . ";dbname=" . DBNAME, USERNAME, PASSWORD);
@@ -65,53 +80,50 @@ function GetPostCount()
 		Error("Couldn't execute query, something might be wrong with the query." . $query);
 	}
 
-	return $stmt->fetch();
+	return $stmt->fetchAll();
 }
 //Returns the post part of the site
 function Posts($page)
 {
+	$amount = 20;
+	$page -= 1;
 	//Gets the end and start id's
-	$page *= 2;
-	$count = GetPostCount();
-	$count = $count[0];
-	echo($count);
-	$dif = $count - $page;
-	echo($dif);
-	if (0 > $dif)
+	$page *= $amount;
+	$id = GetPostCount();
+	$count = count($id);
+	$ar = array();
+	if ($count > ($amount + $page))
 	{
-		$end = 0;
-		$start = 2;
+		usort($id, "sPosts");
+		for ($i = 0; $i < $amount &&  $i + $page < $count ; ++$i)
+		{
+			array_push($ar, $id[$page + $i]);
+		}
 	}
 	else
 	{
-		$end = $count - $page;
-		$start = $end + 20;
+		usort($id, "sPosts");
+		$id = array_reverse($id, false);
+		
+		for ($i = 0; $i < $amount && $i < $count; ++$i)
+		{
+			array_push($ar, $id[$i]);
+		}
 	}
 	
-	$end -= 500;
-	
-	$posts = GetPosts($end, $start);
+	$posts = GetPosts($ar);
 
 	$toReturn = "";
 	$toReturn .= "<div>";
-	$i = 0;
 	foreach ($posts as $p)
 	{
-		if ($i < 2)
-		{
-			$toReturn .= "<div class=\"post indexpost\" onclick=\"window.location.href = 'post.php?id=" . $p['id'] . "'\"><h3 class=\"subject\">";
-			$toReturn .= $p['subject'] . "</h3><div class=\"profile\">";
-			$toReturn .= "<img alt=\"Deleted profileimage\" class=\"profilepic\" src=\"pic/" . $p['name'] . ".jpg\"/><br/>";
-			$toReturn .= "<label class=\"name\">" . $p['name'] . "</label></div>";
-			$toReturn .= "<div class=\"text\"><label style=\"width:60%;float:left;\">" . $p['body'] . "</label>";
-			$toReturn .= "<img alt=\"Deleted image\" class=\"postImage\" src=\"post/" . $p['id'] . "." . $p['image'] . "\" />";
-			$toReturn .= "</div></div>";
-			++$i;
-		}
-		else
-		{
-			break;
-		}
+		$toReturn .= "<div class=\"post indexpost\" onclick=\"window.location.href = 'post.php?id=" . $p['id'] . "'\"><h3 class=\"subject\">";
+		$toReturn .= $p['subject'] . "</h3><div class=\"profile\">";
+		$toReturn .= "<img alt=\"Deleted profileimage\" class=\"profilepic\" src=\"pic/" . $p['name'] . ".jpg\"/><br/>";
+		$toReturn .= "<label class=\"name\">" . $p['name'] . "</label></div>";
+		$toReturn .= "<div class=\"text\"><label style=\"width:60%;float:left;\">" . $p['body'] . "</label>";
+		$toReturn .= "<img alt=\"Deleted image\" class=\"postImage\" src=\"post/" . $p['id'] . "." . $p['image'] . "\" />";
+		$toReturn .= "</div></div>";
 	}
 
 	$toReturn .= "</div>";
