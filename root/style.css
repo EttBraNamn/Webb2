@@ -2,6 +2,7 @@
     height: 40%;
     background-color: #efefef;
     width: 100%;
+    padding-bottom: 1%;
 }
 .post:after{
     clear: both;
@@ -79,7 +80,7 @@
 }
 .postImage{
     float:right;
-    height:85%;
+    max-height: 65%;
     max-width: 100%
 }
 .text {
@@ -159,7 +160,7 @@ body{
     background-color: #e2454a;
     border-width: 0px;
     color: #ffffff;
-    width: 5%;
+    width: 7%;
     padding-top: 0.3%;
     padding-bottom: 0.2%;
     border-radius: 5px; 
